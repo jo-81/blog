@@ -16,6 +16,7 @@
                         :name="$label" 
                         :field="$orderField">{{ ucfirst(__($label)) }}</x-table-header>
                 @endforeach
+                <th class="p-3">Actions</th>
             </tr>
         </thead>
 
@@ -25,6 +26,9 @@
                     @foreach($labels as $label)
                         <td class="p-3">{{ $item->$label }}</td>
                     @endforeach
+                        <td class="p-3">
+                            <a href="{{ route($routeShow, ['id' => $item->id]) }}">Consulter</a>
+                        </td>
                 </tr>
             @endforeach
         </tbody>

@@ -1,4 +1,4 @@
-<th wire:click="setOrderField('{{ $name }}')">
+<th class="p-3" wire:click="setOrderField('{{ $name }}')">
     {{ $slot }}
 
     @if ($visible) 

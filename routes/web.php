@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified'])->prefix('/dashboard')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/categories', [CategoryController::class, 'index'])->name('category.list');
+    Route::get('/categories/{id}', [CategoryController::class, 'show'])->name('category.show');
 });
 
 Route::middleware('auth')->group(function () {

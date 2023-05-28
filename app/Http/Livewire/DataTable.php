@@ -17,10 +17,10 @@ class DataTable extends Component
         'orderField' => ['except' => ''],
         'orderDirection' => ['except' => 'ASC'],
     ];
-    public array $selection = [];
     public $entity;
     public array $labels = [];
     public int $pagination = 10;
+    public string $routeShow = '';
 
     public function render()
     {
@@ -49,19 +49,5 @@ class DataTable extends Component
             $this->orderField = $name;
             $this->reset('orderDirection');
         }
-    }
-    
-    /**
-     * remove
-     * Supprime une sélection d'éléments
-     *
-     * @param  array<int> $ids
-     * @return void
-     */
-    public function remove(array $ids): void
-    {
-        $this->entity::destroy($ids);
-        session()->flash('success', "Votre sélection a bien été supprimée");
-        $this->selection = [];
     }
 }

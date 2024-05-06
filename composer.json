@@ -7,11 +7,23 @@
             "App\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "jo-81",
             "email": "geoffroy.colpart81@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "php-di/php-di": "^7.0"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10",
+        "phpunit/phpunit": "^11.1",
+        "friendsofphp/php-cs-fixer": "^3.55"
+    }
 }

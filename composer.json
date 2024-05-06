@@ -1,0 +1,17 @@
+{
+    "name": "colpart/app",
+    "description": "Blog with PHP",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jo-81",
+            "email": "geoffroy.colpart81@gmail.com"
+        }
+    ],
+    "require": {}
+}

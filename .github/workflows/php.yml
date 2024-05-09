@@ -28,3 +28,15 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
+    - name: Install Composer dependencies
+      run: composer install --no-progress --prefer-dist --optimize-autoloader
+
+    - name: Use php cs-fixer
+      run: vendor/bin/php-cs-fixer fix
+
+    - name: Use phpstan
+      run: vendor/bin/phpstan
+
+    - name: Run test suite
+      run: vendor/bin/phpunit --testdox

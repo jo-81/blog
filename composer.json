@@ -1,0 +1,9 @@
+{
+    "name": "colpart/blog",
+    "autoload": {
+        "psr-4": {
+            "Blog\\": "src/"
+        }
+    },
+    "require": {}
+}

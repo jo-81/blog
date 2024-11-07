@@ -3,7 +3,7 @@
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__)
     ->exclude('vendor')
-    ->notPath('config')
+    ->exclude('config')
 ;
 
 $config = new PhpCsFixer\Config();

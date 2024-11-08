@@ -47,6 +47,10 @@ final class Router
         $url = $request->getUri()->getPath();
         $method = $request->getMethod();
 
+        if (! isset($this->routes[$method])) {
+            return null;
+        }
+
         foreach ($this->routes[$method] as $route) {
             if ($route->match($url) instanceof Route) {
                 return $route;

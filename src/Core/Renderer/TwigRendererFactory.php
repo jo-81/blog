@@ -15,6 +15,16 @@ class TwigRendererFactory
         $loader = new FilesystemLoader($viewPath);
         $twig = new Environment($loader);
 
-        return new TwigRenderer($loader, $twig);
+        /** @var TwigRenderer */
+        $renderer = new TwigRenderer($loader, $twig);
+        if ($container->has('app.renderer_extension')) {
+            /** @var array<mixed> */
+            $extensions = $container->get('app.renderer_extension');
+            foreach ($extensions as $extension) {
+                $renderer->getTwig()->addExtension($extension); /** @phpstan-ignore-line */
+            }
+        }
+
+        return $renderer;
     }
 }

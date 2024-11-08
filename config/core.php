@@ -6,13 +6,14 @@ use function DI\factory;
 
 use Blog\Core\Router\Router;
 use Blog\Core\FrontController;
+use Psr\Container\ContainerInterface;
 use Blog\Core\Middleware\RouterMiddleware;
 use Blog\Core\Middleware\MiddlewareHandler;
+use Blog\Core\Renderer\TwigRendererFactory;
 use Blog\Core\Middleware\NotFoundMiddleware;
 use Blog\Core\Middleware\ResponseMiddleware;
 use Blog\Core\Middleware\TrailingSlashMiddleware;
-use Blog\Core\Renderer\TwigRendererFactory;
-use Psr\Container\ContainerInterface;
+use Blog\Core\Renderer\Extension\FormViewTwigExtension;
 
 return [
     "app.middlewares" => [
@@ -20,6 +21,10 @@ return [
         create(RouterMiddleware::class)->constructor(get("app.router")),
         create(ResponseMiddleware::class)->constructor(get(ContainerInterface::class)),
         create(NotFoundMiddleware::class),
+    ],
+
+    "app.renderer_extension" => [
+        create(FormViewTwigExtension::class),
     ],
 
     "app.routes_folder" => dirname(__DIR__) . "/src/Controller",

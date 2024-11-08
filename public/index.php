@@ -25,6 +25,8 @@ foreach ($fileConfigurations as $file) {
 
 $container = $builder->build();
 
+// dd($container->get("app.renderer_interface"));
+
 $app = $container->get('app.front_controller');
 $response = $app->start(ServerRequest::fromGlobals());
 

@@ -31,6 +31,6 @@ final class ResponseMiddleware implements MiddlewareInterface
             $constrollerInstance = $this->container->get($controller);
         }
 
-        return call_user_func_array([$constrollerInstance, $method], []); /** @phpstan-ignore-line */
+        return call_user_func_array([$constrollerInstance, $method], $route->getParameters()); /** @phpstan-ignore-line */
     }
 }

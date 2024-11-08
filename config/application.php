@@ -11,6 +11,7 @@ use Blog\Controller\Admin\CommentController;
 use Blog\Controller\Auth\RegisterController;
 use Blog\Controller\Front\ArticleController;
 use Blog\Controller\Admin\CategoryController;
+use Blog\Controller\Account\AccountController;
 use Blog\Controller\Admin\DashboardController;
 use Blog\Controller\Auth\ResetPasswordController;
 use Blog\Controller\Admin\ArticleController as ArticleAdminController;
@@ -47,5 +48,8 @@ return [
         ->property('renderer', get("app.renderer_interface")),
 
     UserController::class => create(UserController::class)
+        ->property('renderer', get("app.renderer_interface")),
+
+    AccountController::class => create(AccountController::class)
         ->property('renderer', get("app.renderer_interface")),
 ];

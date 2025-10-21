@@ -14,5 +14,13 @@
             "email": "geoffroy.colpart81@gmail.com"
         }
     ],
-    "require": {}
+    "require-dev": {
+        "symfony/var-dumper": "^7.3",
+        "phpstan/phpstan": "^2.1",
+        "friendsofphp/php-cs-fixer": "^3.89",
+        "phpunit/phpunit": "^12.4"
+    },
+    "require": {
+        "php-di/php-di": "^7.1"
+    }
 }

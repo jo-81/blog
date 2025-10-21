@@ -1,0 +1,18 @@
+{
+    "name": "colpart/blog",
+    "description": "Création d'un blog en PHP",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "Blog\\": "src/",
+            "Framework\\": "Framework/"
+        }
+    },
+    "authors": [
+        {
+            "name": "jo-81",
+            "email": "geoffroy.colpart81@gmail.com"
+        }
+    ],
+    "require": {}
+}

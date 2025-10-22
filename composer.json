@@ -8,6 +8,11 @@
             "Framework\\": "Framework/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "test/"
+        }
+    },
     "authors": [
         {
             "name": "jo-81",
@@ -22,5 +27,17 @@
     },
     "require": {
         "php-di/php-di": "^7.1"
+    },
+    "scripts": {
+        "test": [
+            "phpunit --colors=always"
+        ],
+        "cs-fix": "php-cs-fixer fix --ansi",
+        "stan": "phpstan analyse --ansi --memory-limit=512M",
+        "quality": [
+            "@cs-fix",
+            "@stan",
+            "@test"
+        ]
     }
 }

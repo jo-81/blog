@@ -6,3 +6,4 @@ parameters:
     - framework
   excludePaths:
     - vendor
+    - var

@@ -8,11 +8,12 @@ $finder = PhpCsFixer\Finder::create()
 $config = new PhpCsFixer\Config();
 return $config->setRules([
     '@PSR12' => true,
+    'declare_strict_types' => true,
     'array_syntax' => ['syntax' => 'short'],
     'ordered_imports' => [
         'sort_algorithm' => 'length',
         'imports_order' => ['class', 'function', 'const'],
     ],
     'no_unused_imports' => true,
-])->setFinder($finder)
+])->setRiskyAllowed(true)->setFinder($finder)
 ;

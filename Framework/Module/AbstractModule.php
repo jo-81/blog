@@ -8,6 +8,11 @@ abstract class AbstractModule implements ModuleInterface
 {
     public const DEFINITION = null;
 
+    /**
+     * Permet de retourner le nom du module en fonction du nom de la classe
+     *
+     * @return string
+     */
     public static function getName(): string
     {
         $classShortName = (new \ReflectionClass(static::class))->getShortName();

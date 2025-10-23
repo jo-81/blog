@@ -6,11 +6,25 @@ namespace Framework\Module;
 
 use Framework\Exception\ModuleException;
 
+/**
+ * Registre centralisé pour la gestion des modules de l'application.
+ */
 final class ModuleRegistry
 {
-    /** @var array<string, string> */
+    /**
+     * Modules enregistrés [nom normalisé => FQCN].
+     *
+     * @var array<string, string>
+     */
     private array $modules = [];
 
+    /**
+     * Enregistre un module dans le système.
+     *
+     * @param string $moduleName FQCN du module
+     *
+     * @throws ModuleException Si la classe n'existe pas, n'implémente pas ModuleInterface, ou est déjà enregistrée
+     */
     public function registerModule(string $moduleName): static
     {
         if (!class_exists($moduleName)) {
@@ -32,15 +46,18 @@ final class ModuleRegistry
     }
 
     /**
-     * getModules
+     * Retourne la liste des modules enregistrés.
      *
-     * @return array<string, string>
+     * @return array<string, string> Tableau associatif [nom du module => classe FQCN]
      */
     public function getModules(): array
     {
         return $this->modules;
     }
 
+    /**
+     * Vérifie si un module existe dans le registre.
+     */
     public function isModuleExist(string $moduleName): bool
     {
         return \array_key_exists($moduleName, $this->modules);
@@ -49,7 +66,9 @@ final class ModuleRegistry
     /**
      * Retourne la liste des fichiers de configuration des modules enregistrés.
      *
-     * @return string[]
+     * @return list<string> Chemins absolus vers les fichiers de configuration
+     *
+     * @throws ModuleException Si un fichier de configuration déclaré n'existe pas
      */
     public function getConfigFiles(): array
     {

@@ -47,4 +47,32 @@ final class ModuleRegistryTest extends TestCase
         $this->assertCount(1, $moduleRegistry->getConfigFiles());
         $this->assertEquals($module::DEFINITION, $moduleRegistry->getConfigFiles()[0]);
     }
+
+    /**
+     * testWhenModuleNotExistOrNotImplementModuleInterface
+     *
+     * @return void
+     */
+    public function testWhenModuleNotExistOrNotImplementModuleInterface(): void
+    {
+        $this->expectException(ModuleException::class);
+        $this->expectExceptionMessage("La classe moduleNotFound n'existe pas.");
+
+        $moduleRegistry = new ModuleRegistry();
+        $moduleRegistry->registerModule("moduleNotFound");
+    }
+
+    /**
+     * testWhenModuleNotImplementModuleInterface
+     *
+     * @return void
+     */
+    public function testWhenModuleNotImplementModuleInterface(): void
+    {
+        $this->expectException(ModuleException::class);
+        $this->expectExceptionMessage("La classe ". \SplFileInfo::class ." doit implémenter ModuleInterface.");
+
+        $moduleRegistry = new ModuleRegistry();
+        $moduleRegistry->registerModule(\SplFileInfo::class);
+    }
 }

@@ -118,8 +118,22 @@ final class Application
         return $this->container;
     }
 
+    public function reset(): static
+    {
+        $this->container = null;
+        $this->files = [];
+
+        return $this;
+    }
+
     private function getDirectoryCache(): string
     {
-        return dirname(__DIR__) . '/var/cache/container';
+        $cacheDir = dirname(__DIR__) . '/var/cache/container';
+
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0755, true);
+        }
+
+        return $cacheDir;
     }
 }

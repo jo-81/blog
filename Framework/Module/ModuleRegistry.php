@@ -13,11 +13,20 @@ final class ModuleRegistry
 
     public function registerModule(string $moduleName): static
     {
-        if ($this->isModuleExist($moduleName::getName())) {
-            throw new ModuleException(\sprintf("Le module %s est déjà présent.", $moduleName::getName()));
+        if (!class_exists($moduleName)) {
+            throw new ModuleException(\sprintf("La classe %s n'existe pas.", $moduleName));
         }
 
-        $this->modules[$moduleName::getName()] = $moduleName;
+        if (!is_subclass_of($moduleName, ModuleInterface::class)) {
+            throw new ModuleException(\sprintf("La classe %s doit implémenter ModuleInterface.", $moduleName));
+        }
+
+        $name = $moduleName::getName();
+        if ($this->isModuleExist($name)) {
+            throw new ModuleException(\sprintf("Le module %s est déjà présent.", $name));
+        }
+
+        $this->modules[$name] = $moduleName;
 
         return $this;
     }
@@ -47,7 +56,7 @@ final class ModuleRegistry
         $files = [];
         foreach ($this->modules as $module) {
             $file = $module::DEFINITION;
-            if (empty($file)) {
+            if ($file === null || $file === '') {
                 continue;
             }
 

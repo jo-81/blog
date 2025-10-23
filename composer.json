@@ -10,7 +10,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "test/"
+            "Tests\\": "tests/"
         }
     },
     "authors": [
@@ -29,9 +29,11 @@
         "php-di/php-di": "^7.1"
     },
     "scripts": {
+        "start": "php -S localhost:8000 -t public",
         "test": [
             "phpunit --colors=always"
         ],
+        "coverage": "phpunit --colors=always --coverage-html coverage",
         "cs-fix": "php-cs-fixer fix --ansi",
         "stan": "phpstan analyse --ansi --memory-limit=512M",
         "quality": [

@@ -41,12 +41,21 @@ final class Application
      */
     public function registerFile(string $file): static
     {
+        if (\in_array($file, $this->files, true)) {
+            throw new \RuntimeException(\sprintf("Le fichier %s est déjà enregistré.", $file));
+        }
+
         if (! \file_exists($file)) {
             throw new FileNotFoundException($file);
         }
 
-        if (\in_array($file, $this->files, true)) {
-            throw new \RuntimeException(\sprintf("Le fichier %s est déjà enregistré.", $file));
+        $fileInfo = new \SplFileInfo($file);
+        if ($fileInfo->getExtension() !== 'php') {
+            throw new \RuntimeException(\sprintf("Le fichier %s ne possède pas l'extension .php.", $file));
+        }
+
+        if (!$fileInfo->isReadable()) {
+            throw new \RuntimeException(\sprintf("Le fichier %s n'est pas lisible.", $file));
         }
 
         $this->files[] = $file;

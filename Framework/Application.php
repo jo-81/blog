@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Framework;
 
 use DI\ContainerBuilder;
+use Framework\Module\ModuleRegistry;
 use Psr\Container\ContainerInterface;
 use Framework\Exception\FileNotFoundException;
 
@@ -19,8 +20,10 @@ final class Application
 
     private ?ContainerInterface $container = null;
 
-    public function __construct(private string $environment = self::ENV_DEVELOPMENT)
-    {
+    public function __construct(
+        private ModuleRegistry $moduleRegistry,
+        private string $environment = self::ENV_DEVELOPMENT
+    ) {
     }
 
     public function isDevelopment(): bool
@@ -64,6 +67,11 @@ final class Application
      */
     public function init(): static
     {
+        // Ajout des fichiers de configuration des modules
+        foreach ($this->moduleRegistry->getConfigFiles() as $moduleFile) {
+            $this->registerFile($moduleFile);
+        }
+
         if (empty($this->files)) {
             throw new \RuntimeException("Aucun fichier de configuration n'est enregistré.");
         }
@@ -78,7 +86,8 @@ final class Application
         }
 
         $containerBuilder->addDefinitions([
-            'app.environment' => $this->environment
+            'app.environment' => $this->environment,
+            'app' => $this,
         ]);
 
         if ($this->isProduction()) {

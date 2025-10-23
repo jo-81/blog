@@ -7,8 +7,12 @@ namespace Framework;
 use DI\ContainerBuilder;
 use Framework\Module\ModuleRegistry;
 use Psr\Container\ContainerInterface;
-use Framework\Exception\FileNotFoundException;
+use Framework\Exception\FileConfigurationException;
 
+/**
+ * Application
+ * Permet de récupérer les différents modules et fichiers de configuration pour démarrer l'application
+ */
 final class Application
 {
     public const ENV_DEVELOPMENT = 'dev';
@@ -37,16 +41,29 @@ final class Application
     }
 
     /**
-     * Enregistre un fichier de configuration
+     * Enregistre un fichier de configuration.
+     *
+     * @param string $file Chemin absolu vers le fichier de configuration
+     *
+     * @throws FileConfigurationException Si le fichier est invalide, inaccessible ou déjà enregistré
      */
     public function registerFile(string $file): static
     {
-        if (! \file_exists($file)) {
-            throw new FileNotFoundException($file);
+        if (\in_array($file, $this->files, true)) {
+            throw new FileConfigurationException(\sprintf("Le fichier %s est déjà enregistré.", $file));
         }
 
-        if (\in_array($file, $this->files, true)) {
-            throw new \RuntimeException(\sprintf("Le fichier %s est déjà enregistré.", $file));
+        if (! \file_exists($file)) {
+            throw new FileConfigurationException(\sprintf("Le fichier %s n'existe pas.", $file));
+        }
+
+        $fileInfo = new \SplFileInfo($file);
+        if ($fileInfo->getExtension() !== 'php') {
+            throw new FileConfigurationException(\sprintf("Le fichier %s ne possède pas l'extension .php.", $file));
+        }
+
+        if (!$fileInfo->isReadable()) {
+            throw new FileConfigurationException(\sprintf("Le fichier %s n'est pas lisible.", $file));
         }
 
         $this->files[] = $file;
@@ -55,7 +72,9 @@ final class Application
     }
 
     /**
-     * @return string[]
+     * Retourne les fichiers de configuration enregistrés.
+     *
+     * @return list<string> Chemins absolus
      */
     public function getFiles(): array
     {
@@ -63,7 +82,13 @@ final class Application
     }
 
     /**
-     * Initialise le container avec les différents fichiers de configuration
+     * Initialise le conteneur d'injection de dépendances.
+     *
+     * Charge automatiquement les fichiers de configuration des modules
+     * et applique les optimisations en environnement de production.
+     *
+     * @throws FileConfigurationException Si aucun fichier n'est enregistré
+     * @throws \RuntimeException Si le conteneur est déjà initialisé
      */
     public function init(): static
     {
@@ -73,7 +98,7 @@ final class Application
         }
 
         if (empty($this->files)) {
-            throw new \RuntimeException("Aucun fichier de configuration n'est enregistré.");
+            throw new FileConfigurationException("Aucun fichier de configuration n'est enregistré.");
         }
 
         if ($this->container instanceof ContainerInterface) {
@@ -100,6 +125,11 @@ final class Application
         return $this;
     }
 
+    /**
+     * Récupère le conteneur d'injection de dépendances.
+     *
+     * @throws \RuntimeException Si le conteneur n'est pas encore initialisé
+     */
     public function getContainer(): ContainerInterface
     {
         if ($this->container === null) {
@@ -109,8 +139,22 @@ final class Application
         return $this->container;
     }
 
+    public function reset(): static
+    {
+        $this->container = null;
+        $this->files = [];
+
+        return $this;
+    }
+
     private function getDirectoryCache(): string
     {
-        return dirname(__DIR__) . '/var/cache/container';
+        $cacheDir = dirname(__DIR__) . '/var/cache/container';
+
+        if (!is_dir($cacheDir)) {
+            mkdir($cacheDir, 0755, true);
+        }
+
+        return $cacheDir;
     }
 }

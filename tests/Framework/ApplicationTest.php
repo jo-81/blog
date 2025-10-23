@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Framework\Module\ModuleRegistry;
 use Psr\Container\ContainerInterface;
 use Tests\Fixtures\Module\ExampleModule;
-use Framework\Exception\FileNotFoundException;
+use Framework\Exception\FileConfigurationException;
 
 class ApplicationTest extends TestCase
 {
@@ -27,7 +27,7 @@ class ApplicationTest extends TestCase
      */
     public function testRegisterConfigWhenFolderNotExist(): void
     {
-        $this->expectException(FileNotFoundException::class);
+        $this->expectException(FileConfigurationException::class);
         $this->expectExceptionMessage("Le fichier fileNotFound.php n'existe pas.");
 
         $app = new Application($this->moduleRegistry);
@@ -50,7 +50,7 @@ class ApplicationTest extends TestCase
         $this->assertStringContainsString("framework_test.php", $app->getFiles()[0]);
 
         // Enregistrer deux fois le même fichier
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(FileConfigurationException::class);
         $this->expectExceptionMessage("Le fichier $file est déjà enregistré.");
 
         $app->registerFile($file);
@@ -79,7 +79,7 @@ class ApplicationTest extends TestCase
      */
     public function testInitApplicationWhenNotFileRegister(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(FileConfigurationException::class);
         $this->expectExceptionMessage("Aucun fichier de configuration n'est enregistré.");
 
         $app = new Application($this->moduleRegistry);

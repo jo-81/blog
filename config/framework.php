@@ -1,9 +1,11 @@
 <?php
 
+use Framework\Router\RouterFactory;
 use Framework\Renderer\RendererFactory;
 use Framework\Http\Request\RequestFactory;
 use Framework\Http\Response\ResponseFactory;
 use Framework\Renderer\Twig\TwigRendererFactory;
+use Framework\Router\AltoRouter\AltoRouterFactory;
 use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
 use Framework\Http\Response\Guzzle\GuzzleResponseFactory;
 
@@ -35,4 +37,11 @@ return [
         DI\factory(ResponseFactory::class)->parameter('responseFactory', DI\get(GuzzleResponseFactory::class)),
         
     GuzzleResponseFactory::class => DI\autowire(),
+
+    //Router
+    "app.router_interface" =>
+        DI\factory(RouterFactory::class)->parameter('routerFactory', DI\get(AltoRouterFactory::class)),
+        
+    AltoRouterFactory::class => DI\autowire(),
+    "app.routes" => [],
 ];

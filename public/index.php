@@ -2,6 +2,7 @@
 
 use Framework\Application;
 use Framework\Module\ModuleRegistry;
+use Tests\Fixtures\Module\ExampleModule;
 
 require_once \dirname(__DIR__) . "/vendor/autoload.php";
 

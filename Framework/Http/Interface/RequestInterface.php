@@ -9,4 +9,8 @@ use Psr\Http\Message\ServerRequestInterface;
 interface RequestInterface
 {
     public function createFromGlobals(): ServerRequestInterface;
+
+    public function getUri(): string;
+
+    public function getMethod(): string;
 }

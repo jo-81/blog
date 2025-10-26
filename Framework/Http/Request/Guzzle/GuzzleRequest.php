@@ -14,4 +14,14 @@ class GuzzleRequest implements RequestInterface
     {
         return ServerRequest::fromGlobals();
     }
+
+    public function getUri(): string
+    {
+        return $this->createFromGlobals()->getUri()->getPath();
+    }
+
+    public function getMethod(): string
+    {
+        return $this->createFromGlobals()->getMethod();
+    }
 }

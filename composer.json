@@ -27,7 +27,8 @@
     },
     "require": {
         "php": ">=8.4",
-        "php-di/php-di": "^7.1"
+        "php-di/php-di": "^7.1",
+        "twig/twig": "^3.21"
     },
     "scripts": {
         "start": "php -S localhost:8000 -t public",

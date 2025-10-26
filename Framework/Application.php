@@ -28,6 +28,7 @@ final class Application
         private ModuleRegistry $moduleRegistry,
         private string $environment = self::ENV_DEVELOPMENT
     ) {
+        $_ENV['APP_ENV'] = $this->environment;
     }
 
     public function isDevelopment(): bool

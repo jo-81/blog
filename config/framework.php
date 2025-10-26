@@ -1,14 +1,18 @@
 <?php
 
 use Framework\Renderer\RendererFactory;
+use Framework\Http\Request\RequestFactory;
+use Framework\Http\Response\ResponseFactory;
 use Framework\Renderer\Twig\TwigRendererFactory;
+use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
+use Framework\Http\Response\Guzzle\GuzzleResponseFactory;
 
 return [
     // Renderer
     "app.renderer_interface" => 
         DI\factory(RendererFactory::class)->parameter('rendererFactory', DI\get(TwigRendererFactory::class)),
 
-    TwigRendererFactory::class => DI\autowire(TwigRendererFactory::class),
+    TwigRendererFactory::class => DI\autowire(),
 
     "app.renderer_paths" => [dirname(__DIR__) . "/templates"],
 
@@ -20,4 +24,15 @@ return [
     ],
 
     "app.renderer_extensions" => [],
+
+    // Http
+    "app.request_interface" =>
+        DI\factory(RequestFactory::class)->parameter('requestFactory', DI\get(GuzzleRequestFactory::class)),
+        
+    GuzzleRequestFactory::class => DI\autowire(),
+
+    "app.response_interface" =>
+        DI\factory(ResponseFactory::class)->parameter('responseFactory', DI\get(GuzzleResponseFactory::class)),
+        
+    GuzzleResponseFactory::class => DI\autowire(),
 ];

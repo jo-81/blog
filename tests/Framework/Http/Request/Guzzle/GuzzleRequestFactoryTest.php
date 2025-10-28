@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Framework\Http\Request\Guzzle;
 
 use PHPUnit\Framework\TestCase;
-use Framework\Http\Interface\RequestInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
 
 class GuzzleRequestFactoryTest extends TestCase
@@ -15,6 +15,6 @@ class GuzzleRequestFactoryTest extends TestCase
         $guzzleRendererFactory = new GuzzleRequestFactory();
         $guzzleInterface = $guzzleRendererFactory->factory();
 
-        $this->assertInstanceOf(RequestInterface::class, $guzzleInterface);
+        $this->assertInstanceOf(AppRequestInterface::class, $guzzleInterface);
     }
 }

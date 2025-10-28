@@ -6,10 +6,10 @@ namespace Framework\Router\AltoRouter;
 
 use AltoRouter;
 use Framework\Router\Route;
-use Framework\Http\Interface\RequestInterface;
 use Framework\Router\Interface\RouteInterface;
 use Framework\Router\Exception\RouterException;
 use Framework\Router\Interface\RouterInterface;
+use Framework\Http\Interface\AppRequestInterface;
 
 class AltoRouterRouter implements RouterInterface
 {
@@ -68,9 +68,9 @@ class AltoRouterRouter implements RouterInterface
         }
     }
 
-    public function match(RequestInterface $request): ?RouteInterface
+    public function match(AppRequestInterface $request): ?RouteInterface
     {
-        $route = $this->altoRouter->match($request->getUri(), $request->getMethod());
+        $route = $this->altoRouter->match($request->getUri()->getPath(), $request->getMethod());
         if (!is_array($route)) {
             return null;
         }

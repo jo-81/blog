@@ -2,8 +2,6 @@
 
 use Framework\Router\RouterFactory;
 use Framework\Renderer\RendererFactory;
-use Framework\Http\Request\RequestFactory;
-use Framework\Http\Response\ResponseFactory;
 use Framework\Renderer\Twig\TwigRendererFactory;
 use Framework\Router\AltoRouter\AltoRouterFactory;
 use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
@@ -28,14 +26,10 @@ return [
     "app.renderer_extensions" => [],
 
     // Http
-    "app.request_interface" =>
-        DI\factory(RequestFactory::class)->parameter('requestFactory', DI\get(GuzzleRequestFactory::class)),
-        
+    "app.request_interface" => DI\get(GuzzleRequestFactory::class),
     GuzzleRequestFactory::class => DI\autowire(),
 
-    "app.response_interface" =>
-        DI\factory(ResponseFactory::class)->parameter('responseFactory', DI\get(GuzzleResponseFactory::class)),
-        
+    "app.response_interface" => DI\get(GuzzleResponseFactory::class),
     GuzzleResponseFactory::class => DI\autowire(),
 
     //Router

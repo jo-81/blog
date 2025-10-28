@@ -7,9 +7,10 @@ namespace Tests\Framework\Router\AltoRouter;
 use AltoRouter;
 use Framework\Router\Route;
 use PHPUnit\Framework\TestCase;
-use Framework\Http\Interface\RequestInterface;
+use Psr\Http\Message\UriInterface;
 use Framework\Router\Interface\RouteInterface;
 use Framework\Router\Exception\RouterException;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Router\AltoRouter\AltoRouterRouter;
 
 class AltoRouterRouterTest extends TestCase
@@ -67,8 +68,11 @@ class AltoRouterRouterTest extends TestCase
     {
         $this->router->registerRoute(new Route('post.list', "/posts"));
 
-        $request = $this->createMock(RequestInterface::class);
-        $request->method('getUri')->willReturn('/posts');
+        $uri = $this->createMock(UriInterface::class);
+        $uri->method('getPath')->willReturn('/posts');
+
+        $request = $this->createMock(AppRequestInterface::class);
+        $request->method('getUri')->willReturn($uri);
         $request->method('getMethod')->willReturn('GET');
 
         $route = $this->router->match($request);
@@ -85,8 +89,11 @@ class AltoRouterRouterTest extends TestCase
     {
         $this->router->registerRoute(new Route('post.single', "/posts/[i:id]"));
 
-        $request = $this->createMock(RequestInterface::class);
-        $request->method('getUri')->willReturn('/posts/123');
+        $uri = $this->createMock(UriInterface::class);
+        $uri->method('getPath')->willReturn('/posts/123');
+
+        $request = $this->createMock(AppRequestInterface::class);
+        $request->method('getUri')->willReturn($uri);
         $request->method('getMethod')->willReturn('GET');
 
         $route = $this->router->match($request);
@@ -103,8 +110,11 @@ class AltoRouterRouterTest extends TestCase
     {
         $this->router->registerRoute(new Route('post.list', "/posts"));
 
-        $request = $this->createMock(RequestInterface::class);
-        $request->method('getUri')->willReturn('/invalid');
+        $uri = $this->createMock(UriInterface::class);
+        $uri->method('getPath')->willReturn('/invalid');
+
+        $request = $this->createMock(AppRequestInterface::class);
+        $request->method('getUri')->willReturn($uri);
         $request->method('getMethod')->willReturn('GET');
 
         $route = $this->router->match($request);

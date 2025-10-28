@@ -5,23 +5,21 @@ declare(strict_types=1);
 namespace Framework\Http\Request\Guzzle;
 
 use GuzzleHttp\Psr7\ServerRequest;
-use Psr\Http\Message\ServerRequestInterface;
-use Framework\Http\Interface\RequestInterface;
+use Framework\Http\Interface\AppRequestInterface;
 
-class GuzzleRequest implements RequestInterface
+class GuzzleRequest extends ServerRequest implements AppRequestInterface
 {
-    public function createFromGlobals(): ServerRequestInterface
+    public static function createFromGlobals(): self
     {
-        return ServerRequest::fromGlobals();
-    }
+        $serverRequest = ServerRequest::fromGlobals();
 
-    public function getUri(): string
-    {
-        return $this->createFromGlobals()->getUri()->getPath();
-    }
-
-    public function getMethod(): string
-    {
-        return $this->createFromGlobals()->getMethod();
+        return new self(
+            $serverRequest->getMethod(),
+            $serverRequest->getUri(),
+            $serverRequest->getHeaders(),
+            $serverRequest->getBody(),
+            $serverRequest->getProtocolVersion(),
+            $serverRequest->getServerParams()
+        );
     }
 }

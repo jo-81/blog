@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Framework\Middlewares;
+namespace Tests\Framework\Middleware;
 
 use PHPUnit\Framework\TestCase;
+use Framework\Middleware\MiddlewareHandler;
+use Framework\Middleware\MiddlewareRegistry;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Tests\Fixtures\Middleware\ExampleMiddleware;
 use Framework\Http\Interface\AppResponseInterface;
-use Framework\Middlewares\Exception\MiddlewareException;
+use Framework\Middleware\Exception\MiddlewareException;
 
 class MiddlewareHandlerTest extends TestCase
 {

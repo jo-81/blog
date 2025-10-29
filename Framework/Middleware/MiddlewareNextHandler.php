@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Framework\Middlewares;
+namespace Framework\Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -14,8 +14,8 @@ use Framework\Http\Interface\AppResponseInterface;
  * Cette classe est utilisée pour enchaîner l'exécution des middlewares.
  * Chaque instance de MiddlewareNextHandler permet d'appeler le prochain middleware
  * dans la pile gérée par MiddlewareHandler.
- * 
- * @package Framework\Middlewares
+ *
+ * @package Framework\Middleware
  */
 class MiddlewareNextHandler implements RequestHandlerInterface
 {

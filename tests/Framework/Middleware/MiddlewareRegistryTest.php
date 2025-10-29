@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Framework\Middlewares;
+namespace Tests\Framework\Middleware;
 
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\MiddlewareInterface;
-use Framework\Middlewares\MiddlewareRegistry;
-use Framework\Middlewares\Exception\MiddlewareException;
+use Framework\Middleware\MiddlewareRegistry;
+use Framework\Middleware\Exception\MiddlewareException;
 
 class MiddlewareRegistryTest extends TestCase
 {

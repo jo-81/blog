@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Framework\Middlewares;
+namespace Framework\Middleware;
 
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Framework\Http\Interface\AppResponseInterface;
-use Framework\Middlewares\Exception\MiddlewareException;
+use Framework\Middleware\Exception\MiddlewareException;
 
 /**
  * Gère l'exécution d'une pile de middlewares selon l'ordre défini dans le registre.
@@ -15,7 +15,7 @@ use Framework\Middlewares\Exception\MiddlewareException;
  * Cette classe implémente le pattern de middleware (PSR-15) et permet d'enchaîner
  * l'exécution de plusieurs middlewares avant d'appeler le handler final.
  *
- * @package Framework\Middlewares
+ * @package Framework\Middleware
  */
 final class MiddlewareHandler implements RequestHandlerInterface
 {

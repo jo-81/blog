@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Framework\Middlewares;
+namespace Framework\Middleware;
 
 use Psr\Http\Server\MiddlewareInterface;
-use Framework\Middlewares\Exception\MiddlewareException;
+use Framework\Middleware\Exception\MiddlewareException;
 
 /**
  * Registre des middlewares utilisés par l'application.
@@ -14,7 +14,7 @@ use Framework\Middlewares\Exception\MiddlewareException;
  * utilisés par le système de traitement des requêtes. Chaque middleware doit implémenter
  * l'interface PSR-15 MiddlewareInterface.
  *
- * @package Framework\Middlewares
+ * @package Framework\Middleware
  */
 final class MiddlewareRegistry
 {

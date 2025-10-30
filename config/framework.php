@@ -6,6 +6,7 @@ use Framework\Renderer\Twig\TwigRendererFactory;
 use Framework\Router\AltoRouter\AltoRouterFactory;
 use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
 use Framework\Http\Response\Guzzle\GuzzleResponseFactory;
+use Framework\Session\NativeSessionFactory;
 
 return [
     // Renderer
@@ -32,10 +33,32 @@ return [
     "app.response_interface" => DI\get(GuzzleResponseFactory::class),
     GuzzleResponseFactory::class => DI\autowire(),
 
-    //Router
+    // Router
     "app.router_interface" =>
         DI\factory(RouterFactory::class)->parameter('routerFactory', DI\get(AltoRouterFactory::class)),
         
     AltoRouterFactory::class => DI\autowire(),
     "app.routes" => [],
+
+    // Session
+    "app.session_interface" => DI\factory(NativeSessionFactory::class),
+    NativeSessionFactory::class => DI\autowire(),
+    "app.session_options" => [
+        'dev' => [
+            'name' => 'DEV_SESSION',
+            'lifetime' => 86400,
+            'secure' => false,
+            'httponly' => true,
+            'samesite' => 'Lax',
+        ],
+        'prod' => [
+            'name' => 'APP_SESSION',
+            'lifetime' => 3600,
+            'path' => '/',
+            'domain' => '.example.com',
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Strict',
+        ]
+    ]
 ];

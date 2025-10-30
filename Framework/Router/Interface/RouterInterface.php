@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Framework\Router\Interface;
 
 use Framework\Router\Exception\RouterException;
+use Framework\Http\Interface\AppRequestInterface;
 
 interface RouterInterface
 {
@@ -28,4 +29,6 @@ interface RouterInterface
      * @throws RouterException la route n'existe pas
      */
     public function generate(string $name, array $params = []): string;
+
+    public function match(AppRequestInterface $request): ?RouteInterface;
 }

@@ -99,8 +99,9 @@ final class RouteCallbackValidatorMiddleware implements MiddlewareInterface
             );
         }
 
-        // Ajoute l'attribut contenant le contrôleur et la méthode validés
+        // Ajoute l'attribut contenant le contrôleur, la méthode et les paramètres
         $request = $request->withAttribute("_app__target", [$controller, $method]);
+        $request = $request->withAttribute("_app__parameters", $route->getParameters());
 
         /** @var AppResponseInterface */
         return $handler->handle($request);

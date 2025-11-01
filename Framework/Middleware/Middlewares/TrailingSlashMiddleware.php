@@ -8,6 +8,7 @@ use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Interface\AppResponseInterface;
 use Framework\Http\Interface\ResponseFactoryInterface;
 
@@ -37,7 +38,7 @@ final class TrailingSlashMiddleware implements MiddlewareInterface
     /**
      * Traite la requête HTTP, redirige si le chemin se termine par un slash à enlever.
      *
-     * @param ServerRequestInterface $request Requête HTTP entrante.
+     * @param AppRequestInterface $request Requête HTTP entrante.
      * @param RequestHandlerInterface $handler Prochain handler dans la chaîne de middlewares.
      * @return AppResponseInterface Réponse HTTP, éventuellement une redirection.
      */

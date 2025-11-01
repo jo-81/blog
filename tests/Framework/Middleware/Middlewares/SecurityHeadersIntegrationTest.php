@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Tests\Framework\Middleware\Middlewares;
 
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Request\Guzzle\GuzzleRequest;
 use Framework\Http\Response\Guzzle\GuzzleResponse;
 use Framework\Middleware\Middlewares\SecurityHeadersMiddleware;
 
@@ -22,7 +22,7 @@ class SecurityHeadersIntegrationTest extends TestCase
         $middleware = new SecurityHeadersMiddleware(isProduction: true);
         $handler = $this->createMock(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn(new GuzzleResponse());
-        $request = new ServerRequest("GET", 'https://example.com/admin/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/admin/articles');
 
         $response = $middleware->process($request, $handler);
         $csp = $response->getHeaderLine('Content-Security-Policy');
@@ -43,7 +43,7 @@ class SecurityHeadersIntegrationTest extends TestCase
         $middleware = new SecurityHeadersMiddleware(isProduction: false);
         $handler = $this->createMock(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn(new GuzzleResponse());
-        $request = new ServerRequest("GET", 'https://example.com/admin/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/admin/articles');
 
         $response = $middleware->process($request, $handler);
         $csp = $response->getHeaderLine('Content-Security-Policy');

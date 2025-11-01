@@ -7,8 +7,8 @@ namespace Tests\Framework\Middleware\Middlewares;
 use Psr\Log\LogLevel;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Request\Guzzle\GuzzleRequest;
 use Framework\Http\Interface\AppResponseInterface;
 use Framework\Middleware\Middlewares\LoggingMiddleware;
 
@@ -32,7 +32,7 @@ class LoggingMiddlewareTest extends TestCase
      */
     public function testLogsSuccessfulRequest(): void
     {
-        $request = new ServerRequest("GET", 'https://example.com/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/articles');
 
         $response = $this->createMock(AppResponseInterface::class);
         $response->method('getStatusCode')->willReturn(200);
@@ -63,7 +63,7 @@ class LoggingMiddlewareTest extends TestCase
      */
     public function testLogs404AsWarning(): void
     {
-        $request = new ServerRequest("GET", 'https://example.com/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/articles');
 
         $response = $this->createMock(AppResponseInterface::class);
         $response->method('getStatusCode')->willReturn(404);
@@ -86,7 +86,7 @@ class LoggingMiddlewareTest extends TestCase
      */
     public function testLogs500AsError(): void
     {
-        $request = new ServerRequest("GET", 'https://example.com/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/articles');
 
         $response = $this->createMock(AppResponseInterface::class);
         $response->method('getStatusCode')->willReturn(500);
@@ -110,7 +110,7 @@ class LoggingMiddlewareTest extends TestCase
     public function testLogsExceptionAndRethrows(): void
     {
         $exception = new \RuntimeException('Test error');
-        $request = new ServerRequest("GET", 'https://example.com/articles');
+        $request = new GuzzleRequest("GET", 'https://example.com/articles');
         $this->handler->method('handle')->willThrowException($exception);
 
         $this->logger

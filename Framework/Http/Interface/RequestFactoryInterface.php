@@ -6,5 +6,5 @@ namespace Framework\Http\Interface;
 
 interface RequestFactoryInterface
 {
-    public function factory(): AppRequestInterface;
+    public function createFromGlobals(): AppRequestInterface;
 }

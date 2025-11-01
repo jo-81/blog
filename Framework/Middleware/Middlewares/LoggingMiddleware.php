@@ -9,6 +9,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Interface\AppResponseInterface;
 
 /**
@@ -32,7 +33,7 @@ final class LoggingMiddleware implements MiddlewareInterface
     /**
      * Intercepte la requête, mesure la durée d'exécution et journalise le résultat ou l'exception.
      *
-     * @param ServerRequestInterface $request La requête HTTP entrante.
+     * @param AppRequestInterface $request La requête HTTP entrante.
      * @param RequestHandlerInterface $handler Le handler suivant dans la chaîne de middlewares.
      * @return AppResponseInterface La réponse renvoyée.
      * @throws \Throwable Toute exception sera propagée après journalisation.

@@ -7,6 +7,9 @@ namespace Framework;
 use DI\ContainerBuilder;
 use Framework\Module\ModuleRegistry;
 use Psr\Container\ContainerInterface;
+use Framework\Middleware\MiddlewareHandler;
+use Framework\Http\Interface\AppRequestInterface;
+use Framework\Http\Interface\AppResponseInterface;
 use Framework\Exception\FileConfigurationException;
 
 /**
@@ -112,7 +115,7 @@ final class Application
         }
 
         $containerBuilder->addDefinitions([
-            'app.environment' => $this->environment,
+            'environment' => $this->environment,
             'app' => $this,
         ]);
 
@@ -146,6 +149,15 @@ final class Application
         $this->files = [];
 
         return $this;
+    }
+
+    public function start(): AppResponseInterface
+    {
+        /** @var MiddlewareHandler */
+        $middlewareHandler = $this->getContainer()->get(MiddlewareHandler::class);
+        $requestFactory = $this->getContainer()->get(AppRequestInterface::class);
+
+        return $middlewareHandler->handle($requestFactory);
     }
 
     private function getDirectoryCache(): string

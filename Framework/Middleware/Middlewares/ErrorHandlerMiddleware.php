@@ -8,6 +8,7 @@ use Psr\Log\LoggerInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Interface\AppResponseInterface;
 use Framework\Renderer\Interface\RendererInterface;
 use Framework\Http\Interface\ResponseFactoryInterface;
@@ -40,7 +41,7 @@ final class ErrorHandlerMiddleware implements MiddlewareInterface
     /**
      * Intercepte et gère les exceptions ; passe la requête au prochain handler en mode normal.
      *
-     * @param ServerRequestInterface $request Requête HTTP courante.
+     * @param AppRequestInterface $request Requête HTTP courante.
      * @param RequestHandlerInterface $handler Handler suivant dans la chaîne des middlewares.
      * @return AppResponseInterface Réponse HTTP (normale ou erreur).
      */
@@ -304,14 +305,14 @@ final class ErrorHandlerMiddleware implements MiddlewareInterface
     private function getTemplate(int $statusCode): string
     {
         if ($this->debug) {
-            return "error/debug.html.twig";
+            return "errors/debug.html.twig";
         }
 
-        $template = "error/{$statusCode}.html.twig";
+        $template = "errors/{$statusCode}.html.twig";
         if ($this->renderer->isTemplateExists($template)) {
             return $template;
         }
 
-        return "error/500.html.twig";
+        return "errors/500.html.twig";
     }
 }

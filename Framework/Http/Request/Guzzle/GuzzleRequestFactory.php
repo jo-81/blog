@@ -9,7 +9,7 @@ use Framework\Http\Interface\RequestFactoryInterface;
 
 class GuzzleRequestFactory implements RequestFactoryInterface
 {
-    public function factory(): AppRequestInterface
+    public function createFromGlobals(): AppRequestInterface
     {
         return GuzzleRequest::createFromGlobals();
     }

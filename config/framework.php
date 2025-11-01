@@ -1,16 +1,24 @@
 <?php
 
+use Psr\Log\LoggerInterface;
 use Framework\Router\RouterFactory;
 use Framework\Renderer\RendererFactory;
+use Framework\Http\Request\RequestFactory;
+use Framework\Session\NativeSessionFactory;
+use Framework\Router\Interface\RouterInterface;
 use Framework\Renderer\Twig\TwigRendererFactory;
+use Framework\Http\Interface\AppRequestInterface;
+use Framework\Session\Interface\SessionInterface;
 use Framework\Router\AltoRouter\AltoRouterFactory;
+use Framework\Renderer\Interface\RendererInterface;
+use Framework\Http\Interface\ResponseFactoryInterface;
 use Framework\Http\Request\Guzzle\GuzzleRequestFactory;
 use Framework\Http\Response\Guzzle\GuzzleResponseFactory;
-use Framework\Session\NativeSessionFactory;
+use Framework\Log\Monolog\MonologFactory;
 
 return [
     // Renderer
-    "app.renderer_interface" => 
+    RendererInterface::class => 
         DI\factory(RendererFactory::class)->parameter('rendererFactory', DI\get(TwigRendererFactory::class)),
 
     TwigRendererFactory::class => DI\autowire(),
@@ -27,21 +35,22 @@ return [
     "app.renderer_extensions" => [],
 
     // Http
-    "app.request_interface" => DI\get(GuzzleRequestFactory::class),
+    AppRequestInterface::class => DI\factory(RequestFactory::class)
+        ->parameter('requestFactory', DI\get(GuzzleRequestFactory::class)),
     GuzzleRequestFactory::class => DI\autowire(),
 
-    "app.response_interface" => DI\get(GuzzleResponseFactory::class),
+    ResponseFactoryInterface::class => DI\get(GuzzleResponseFactory::class),
     GuzzleResponseFactory::class => DI\autowire(),
 
     // Router
-    "app.router_interface" =>
+    RouterInterface::class =>
         DI\factory(RouterFactory::class)->parameter('routerFactory', DI\get(AltoRouterFactory::class)),
         
     AltoRouterFactory::class => DI\autowire(),
     "app.routes" => [],
 
     // Session
-    "app.session_interface" => DI\factory(NativeSessionFactory::class),
+    SessionInterface::class => DI\factory(NativeSessionFactory::class),
     NativeSessionFactory::class => DI\autowire(),
     "app.session_options" => [
         'dev' => [
@@ -60,5 +69,21 @@ return [
             'httponly' => true,
             'samesite' => 'Strict',
         ]
-    ]
+    ],
+
+    // Modules
+    "Blog\\*Module\\Controller\\*Controller" => DI\create("Blog\\*Module\\Controller\\*Controller")
+        ->property('containers', DI\get("app.container_controller"))
+    ,
+
+    // Controller
+    "app.container_controller" => [
+        "renderer" => DI\get(RendererInterface::class),
+        "request" => DI\get(AppRequestInterface::class),
+        "response" => DI\get(ResponseFactoryInterface::class),
+    ],
+
+    // Logger
+    LoggerInterface::class => DI\factory(MonologFactory::class),
+    "app.file_log" => dirname(__DIR__) . "/var/log/app.log"
 ];

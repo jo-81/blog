@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests\Framework\Middleware\Middlewares;
 
 use PHPUnit\Framework\TestCase;
-use GuzzleHttp\Psr7\ServerRequest;
 use Psr\Http\Server\RequestHandlerInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
+use Framework\Http\Request\Guzzle\GuzzleRequest;
 use Framework\Http\Interface\AppResponseInterface;
 use Framework\Http\Response\Guzzle\GuzzleResponseFactory;
 use Framework\Middleware\Middlewares\TrailingSlashMiddleware;
@@ -30,7 +30,7 @@ class TrailingSlashMiddlewareTest extends TestCase
     #[DataProvider('provideUrls')]
     public function testUrls(string $path, int $statusCode): void
     {
-        $request = new ServerRequest("GET", $path);
+        $request = new GuzzleRequest("GET", $path);
         $handler = $this->createMock(RequestHandlerInterface::class);
         $handler->method('handle')->willReturn($this->getResponse($statusCode));
 

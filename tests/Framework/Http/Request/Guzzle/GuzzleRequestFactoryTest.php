@@ -13,8 +13,7 @@ class GuzzleRequestFactoryTest extends TestCase
     public function testReturnGuzzleRequestInterface(): void
     {
         $guzzleRendererFactory = new GuzzleRequestFactory();
-        $guzzleInterface = $guzzleRendererFactory->factory();
 
-        $this->assertInstanceOf(AppRequestInterface::class, $guzzleInterface);
+        $this->assertInstanceOf(AppRequestInterface::class, $guzzleRendererFactory->createFromGlobals());
     }
 }

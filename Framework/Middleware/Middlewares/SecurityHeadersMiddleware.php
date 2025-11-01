@@ -7,6 +7,7 @@ namespace Framework\Middleware\Middlewares;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Interface\AppResponseInterface;
 
 /**
@@ -45,7 +46,7 @@ final class SecurityHeadersMiddleware implements MiddlewareInterface
     /**
      * Traite la requête HTTP, ajoute les en-têtes de sécurité à la réponse.
      *
-     * @param ServerRequestInterface $request Requête HTTP entrante.
+     * @param AppRequestInterface $request Requête HTTP entrante.
      * @param RequestHandlerInterface $handler Prochain handler à appeler.
      * @return AppResponseInterface Réponse HTTP enrichie avec les en-têtes de sécurité.
      */

@@ -7,8 +7,8 @@ namespace Tests\Framework\Middleware\Middlewares;
 use Psr\Log\LoggerInterface;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\StreamInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Http\Interface\AppResponseInterface;
 use Framework\Renderer\Interface\RendererInterface;
 use Framework\Http\Interface\ResponseFactoryInterface;
@@ -18,7 +18,7 @@ class ErrorHandlerMiddlewareTest extends TestCase
 {
     private ErrorHandlerMiddleware $middleware;
     private $logger; // @phpstan-ignore missingType.property
-    private ServerRequestInterface $request;
+    private AppRequestInterface $request;
     private RendererInterface $renderer;
     private $responseFactory; // @phpstan-ignore missingType.property
 
@@ -31,7 +31,7 @@ class ErrorHandlerMiddlewareTest extends TestCase
         $this->responseFactory = $this->createMock(ResponseFactoryInterface::class);
         $this->responseFactory->method('createHtmlResponse')->willReturn($mockResponse);
 
-        $this->request = $this->createMock(ServerRequestInterface::class);
+        $this->request = $this->createMock(AppRequestInterface::class);
 
         $this->middleware = new ErrorHandlerMiddleware(
             renderer: $this->renderer,

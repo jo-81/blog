@@ -1,7 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'errors/base.html.twig' %}
 
 {% block body %}
-    <div class="error-code">{$statusCode}</div>
-    <h1>{$title}</h1>
-    <p>{$message}</p>
+    <div class="error-code">{{ statusCode }}</div>
+    <h1>{{ exceptionClass }}</h1>
+    <div>
+        <p>Message : {{ message|raw }}</p>
+    </div>
+
+    <div>
+        <p>File : {{ file|raw }}</p>
+    </div>
+
+    <div>
+        <p>Line : {{ line|raw }}</p>
+    </div>
+
+    <div>
+        <p>Trace : {{ trace|raw }}</p>
+    </div>
+
+    <div>
+        <p>{{ sourceCode|raw }}</p>
+    </div>
 {% endblock %}

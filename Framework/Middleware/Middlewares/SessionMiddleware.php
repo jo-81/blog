@@ -7,6 +7,7 @@ namespace Framework\Middleware\Middlewares;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Framework\Http\Interface\AppRequestInterface;
 use Framework\Session\Interface\SessionInterface;
 use Framework\Http\Interface\AppResponseInterface;
 
@@ -34,7 +35,7 @@ final class SessionMiddleware implements MiddlewareInterface
      * Démarre la session, ajoute la session à la requête, délègue au handler suivant,
      * puis sauvegarde la session.
      *
-     * @param ServerRequestInterface $request Requête HTTP entrante.
+     * @param AppRequestInterface $request Requête HTTP entrante.
      * @param RequestHandlerInterface $handler Prochain handler dans la chaîne.
      * @return AppResponseInterface Réponse HTTP générée.
      */

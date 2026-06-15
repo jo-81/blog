@@ -1,0 +1,22 @@
+{
+    "name": "jo-81/blog",
+    "description": "Framework PHP MVC sur mesure pour portfolio et blog",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+            "Framework\\": "framework/"
+        }
+    },
+    "require": {
+        "php": ">=8.1"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        },
+        "process-timeout": 0,
+        "sort-packages": true
+    }
+}

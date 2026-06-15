@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Si le fichier ou le dossier demandé existe physiquement, on le charge directement
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    # Sinon, on redirige tout vers le point d'entrée unique du framework
+    RewriteRule ^ index.php [L]
+</IfModule>

@@ -1,0 +1,68 @@
+services:
+  # --- SERVEUR WEB APACHE & PHP 8.1 FUSIONNÉS ---
+  app:
+    build:
+      context: .
+      dockerfile: docker/php-apache/Dockerfile
+    container_name: framework_app
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+    environment:
+      # Configuration Xdebug pour le pas-à-pas et Pest --coverage
+      XDEBUG_MODE: "debug,coverage"
+      XDEBUG_CONFIG: "client_host=host.docker.internal client_port=9003 start_with_request=yes"
+    networks:
+      - framework_network
+
+  # --- BASE DE DONNÉES MYSQL ---
+  mysql:
+    image: mysql:8.0
+    container_name: framework_mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: blog_framework
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    volumes:
+      - framework_db_data:/var/lib/mysql
+    networks:
+      - framework_network
+
+  # --- INTERFACE PHPMYADMIN ---
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: framework_phpmyadmin
+    ports:
+      - "8081:80" # Accessible sur le port 8081 de votre machine
+    environment:
+      PMA_HOST: mysql # Fait le lien avec le nom du service MySQL ci-dessus
+      PMA_USER: root
+      PMA_PASSWORD: root
+    depends_on:
+      - mysql
+    networks:
+      - framework_network
+
+  # --- NODE.JS / VITE (Compilation Sass & Hot Reload) ---
+  node:
+    image: node:20-alpine
+    container_name: framework_node
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html
+    ports:
+      - "5173:5173"
+    command: sh -c "npm install && npm run dev -- --host"
+    networks:
+      - framework_network
+
+networks:
+  framework_network:
+    driver: bridge
+
+volumes:
+  framework_db_data:

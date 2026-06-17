@@ -21,5 +21,8 @@
         },
         "process-timeout": 0,
         "sort-packages": true
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.4"
     }
 }

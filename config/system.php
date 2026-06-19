@@ -1,5 +1,17 @@
 <?php
 
+use App\Middlewares\MessageTestMiddleware;
+
 // Configuration de l'infrastructure
 
-return [];
+return [
+    /*
+    |--------------------------------------------------------------------------
+    | Pile de Middlewares Globaux
+    |--------------------------------------------------------------------------
+    | Ces middlewares sont exécutés dans l'ordre pour chaque requête HTTP.
+    */
+    'app.middlewares' => [
+        MessageTestMiddleware::class,
+    ],
+];

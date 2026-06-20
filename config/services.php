@@ -1,6 +1,7 @@
 <?php
 
 use App\Factories\RouterFactory;
+use App\Middlewares\WhoopsMiddleware;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Container\ContainerInterface;
 use App\Factories\HttpPipelineFactory;
@@ -18,6 +19,11 @@ return [
     ResponseFactoryInterface::class => DI\get(Psr17Factory::class),
 
     ErrorHandlingMiddleware::class => fn(ContainerInterface $c) => new ErrorHandlingMiddleware(
+        $c->get(ResponseFactoryInterface::class),
+        $c->get('settings.debug')
+    ),
+
+    WhoopsMiddleware::class => fn(ContainerInterface $c) => new WhoopsMiddleware(
         $c->get(ResponseFactoryInterface::class),
         $c->get('settings.debug')
     ),

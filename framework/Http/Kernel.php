@@ -1,10 +1,9 @@
 <?php
 
-namespace Framework;
+namespace Framework\Http;
 
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Cœur du Framework.
@@ -13,20 +12,16 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 class Kernel
 {
-    /**
-     * @param RequestHandlerInterface $routerDispatcher Le gestionnaire de la pile de middlewares.
-     */
-    public function __construct(private RequestHandlerInterface $routerDispatcher)
+    public function __construct(private HttpPipelineInterface $pipeline, private ServerRequestInterface $request)
     {}
 
     /**
      * Gère la requête HTTP entrante et retourne la réponse générée par la pile de middlewares.
      *
-     * @param ServerRequestInterface $request L'objet représentant la requête HTTP reçue.
      * @return ResponseInterface La réponse HTTP à renvoyer au navigateur.
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    public function handle(): ResponseInterface
     {
-        return $this->routerDispatcher->handle($request);
+        return $this->pipeline->process($this->request);
     }
 }

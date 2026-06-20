@@ -12,17 +12,16 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class Kernel
 {
-    public function __construct(private HttpPipelineInterface $pipeline)
+    public function __construct(private HttpPipelineInterface $pipeline, private ServerRequestInterface $request)
     {}
 
     /**
      * Gère la requête HTTP entrante et retourne la réponse générée par la pile de middlewares.
      *
-     * @param ServerRequestInterface $request L'objet représentant la requête HTTP reçue.
      * @return ResponseInterface La réponse HTTP à renvoyer au navigateur.
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface
+    public function handle(): ResponseInterface
     {
-        return $this->pipeline->process($request);
+        return $this->pipeline->process($this->request);
     }
 }

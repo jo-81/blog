@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Http\Router\Route;
 use App\Middlewares\MessageTestMiddleware;
 
 // Configuration de l'infrastructure
@@ -14,4 +15,11 @@ return [
     'app.middlewares' => [
         MessageTestMiddleware::class,
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Routes
+    |--------------------------------------------------------------------------
+    */
+    'app.routes' => [],
 ];

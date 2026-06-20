@@ -1,6 +1,7 @@
 <?php
 
 use Framework\Http\Router\Route;
+use App\Middlewares\RoutingMiddleware;
 use App\Middlewares\MessageTestMiddleware;
 
 // Configuration de l'infrastructure
@@ -13,6 +14,7 @@ return [
     | Ces middlewares sont exécutés dans l'ordre pour chaque requête HTTP.
     */
     'app.middlewares' => [
+        RoutingMiddleware::class,
         MessageTestMiddleware::class,
     ],
 
@@ -21,5 +23,7 @@ return [
     | Routes
     |--------------------------------------------------------------------------
     */
-    'app.routes' => [],
+    'app.routes' => [
+        new Route(['GET'], "/", fn() => 'Homepage'),
+    ],
 ];

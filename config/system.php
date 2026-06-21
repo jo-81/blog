@@ -1,10 +1,11 @@
 <?php
 
 use Framework\Http\Router\Route;
+use App\Controller\TestController;
 use App\Middlewares\WhoopsMiddleware;
 use App\Middlewares\RoutingMiddleware;
-use App\Middlewares\MessageTestMiddleware;
 use App\Middlewares\ErrorHandlingMiddleware;
+use App\Middlewares\RequestHandlerMiddleware;
 
 // Configuration de l'infrastructure
 
@@ -19,7 +20,7 @@ return [
         WhoopsMiddleware::class,
         ErrorHandlingMiddleware::class,
         RoutingMiddleware::class,
-        MessageTestMiddleware::class,
+        RequestHandlerMiddleware::class,
     ],
 
     /*
@@ -28,6 +29,6 @@ return [
     |--------------------------------------------------------------------------
     */
     'app.routes' => [
-        new Route(['GET'], "/", fn() => 'Homepage'),
+        new Route(['GET'], "/", [TestController::class, 'index'], 'homepage'),
     ],
 ];

@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Factories;
+namespace Framework\Factories;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
-use Psr\Container\ContainerInterface;
 use Nyholm\Psr7Server\ServerRequestCreator;
 use Psr\Http\Message\ServerRequestInterface;
 

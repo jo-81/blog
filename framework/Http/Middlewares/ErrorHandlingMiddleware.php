@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares;
+namespace Framework\Http\Middlewares;
 
 use Framework\Http\Exception\RouteNotFoundException;
 use Framework\Http\Exception\MethodNotAllowedException;

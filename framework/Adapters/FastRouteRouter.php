@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapters;
+namespace Framework\Adapters;
 
 use RuntimeException;
 use FastRoute\RouteCollector;

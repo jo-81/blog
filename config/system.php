@@ -2,10 +2,11 @@
 
 use Framework\Http\Router\Route;
 use App\Controller\TestController;
-use App\Middlewares\WhoopsMiddleware;
-use App\Middlewares\RoutingMiddleware;
-use App\Middlewares\ErrorHandlingMiddleware;
-use App\Middlewares\RequestHandlerMiddleware;
+use Framework\Http\Middlewares\WhoopsMiddleware;
+use Framework\Http\Middlewares\RoutingMiddleware;
+use Framework\Http\Middlewares\ErrorHandlingMiddleware;
+use Framework\Http\Middlewares\RequestHandlerMiddleware;
+
 
 // Configuration de l'infrastructure
 

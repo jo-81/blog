@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares;
+namespace Framework\Http\Middlewares;
 
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;

@@ -1,16 +1,18 @@
 <?php
 
-use App\Factories\RouterFactory;
-use App\Middlewares\WhoopsMiddleware;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Container\ContainerInterface;
-use App\Factories\HttpPipelineFactory;
-use App\Factories\ServerRequestFactory;
+use Framework\Factories\RouterFactory;
 use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
-use App\Middlewares\ErrorHandlingMiddleware;
+use Framework\Factories\HttpPipelineFactory;
 use Psr\Http\Message\ServerRequestInterface;
+use Framework\Factories\ServerRequestFactory;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Framework\Http\Middlewares\WhoopsMiddleware;
+use Framework\Http\Middlewares\ErrorHandlingMiddleware;
+
+
 
 return [
     HttpPipelineInterface::class => DI\factory(HttpPipelineFactory::class),

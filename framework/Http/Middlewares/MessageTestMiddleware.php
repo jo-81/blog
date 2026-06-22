@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares;
+namespace Framework\Http\Middlewares;
 
 use Nyholm\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;

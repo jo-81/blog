@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Middlewares;
+namespace Framework\Http\Middlewares;
 
 use RuntimeException;
 use Framework\Http\Router\RouteMatch;

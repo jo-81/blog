@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Factories;
+namespace Framework\Factories;
 
-use Framework\Http\Router\Route;
-use App\Adapters\FastRouteRouter;
-use Psr\Container\ContainerInterface;
-use Framework\Http\Router\RouterInterface;
 use RuntimeException;
+use Framework\Http\Router\Route;
+use Psr\Container\ContainerInterface;
+use Framework\Adapters\FastRouteRouter;
+use Framework\Http\Router\RouterInterface;
 
 /**
  * Class RouterFactory

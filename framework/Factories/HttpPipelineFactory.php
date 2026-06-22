@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Factories;
+namespace Framework\Factories;
 
 use Relay\Relay;
-use App\Adapters\RelayHttpPipeline;
 use Psr\Container\ContainerInterface;
+use Framework\Adapters\RelayHttpPipeline;
 use Framework\Http\HttpPipelineInterface;
 
 /**

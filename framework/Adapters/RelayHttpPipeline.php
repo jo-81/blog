@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Adapters;
+namespace Framework\Adapters;
 
 use Framework\Http\HttpPipelineInterface;
 use Psr\Http\Message\ResponseInterface;

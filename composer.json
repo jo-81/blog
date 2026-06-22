@@ -27,6 +27,16 @@
         "sort-packages": true
     },
     "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.95",
+        "pestphp/pest": "^1.23",
+        "phpstan/phpstan": "^2.2",
         "symfony/var-dumper": "^6.4"
+    },
+    "scripts": {
+        "test": "pest",
+        "test:coverage": "XDEBUG_MODE=coverage pest --coverage-html coverage-report",
+        "lint": "php-cs-fixer check --diff",
+        "lint:fix": "php-cs-fixer fix",
+        "check": "phpstan"
     }
 }

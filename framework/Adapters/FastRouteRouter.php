@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Adapters;
+declare(strict_types=1);
+
+namespace Framework\Adapters;
 
 use RuntimeException;
 use FastRoute\RouteCollector;
@@ -37,7 +39,7 @@ class FastRouteRouter implements RouterInterface
     {
         $this->routeCollector = new RouteCollector(
             new RouteParser(),
-            new DataGenerator()
+            new DataGenerator(),
         );
     }
 
@@ -61,7 +63,7 @@ class FastRouteRouter implements RouterInterface
         $this->routeCollector->addRoute(
             $route->getMethods(),
             $route->getPath(),
-            $route // Injection de l'objet Route complet en guise de handler personnalisé
+            $route, // Injection de l'objet Route complet en guise de handler personnalisé
         );
 
         return $route;
@@ -114,25 +116,25 @@ class FastRouteRouter implements RouterInterface
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                throw new RouteNotFoundException("404 Not Found", 404);
+                throw new RouteNotFoundException('404 Not Found', 404);
 
             case Dispatcher::METHOD_NOT_ALLOWED:
-                throw new MethodNotAllowedException("405 Method Not Allowed", 405);
+                throw new MethodNotAllowedException('405 Method Not Allowed', 405);
 
             case Dispatcher::FOUND:
                 /** * Récupération de l'objet Route d'origine passé en handler.
-                 * @var Route $matchedRoute 
+                 * @var Route $matchedRoute
                  */
                 $matchedRoute = $routeInfo[1];
-                
+
                 /** * Variables dynamiques extraites de l'URL par FastRoute.
-                 * @var array<string, string> $arguments 
+                 * @var array<string, string> $arguments
                  */
                 $arguments = $routeInfo[2];
 
                 return new RouteMatch($matchedRoute, $arguments);
         }
 
-        throw new RuntimeException("Erreur interne de routage.");
+        throw new RuntimeException('Erreur interne de routage.');
     }
 }

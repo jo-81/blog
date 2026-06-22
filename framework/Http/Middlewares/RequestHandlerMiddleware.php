@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Middlewares;
+declare(strict_types=1);
 
+namespace Framework\Http\Middlewares;
+
+use DI\Container;
 use RuntimeException;
 use Framework\Http\Router\RouteMatch;
-use DI\Container;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 class RequestHandlerMiddleware implements MiddlewareInterface
@@ -28,20 +30,20 @@ class RequestHandlerMiddleware implements MiddlewareInterface
 
         // On extrait le handler (ex: [PortfolioController::class, 'show'] ou une Closure)
         $routeHandler = $routeMatch->getHandler();
-        
+
         // On fusionne la requête et les arguments d'URL pour les injecter dans le contrôleur
         $parameters = array_merge(
             ['request' => $request], // Permet au contrôleur de récupérer la $request par son nom de variable
-            $routeMatch->getArguments() // Injecte les variables d'URL (ex: 'id' => 4)
+            $routeMatch->getArguments(), // Injecte les variables d'URL (ex: 'id' => 4)
         );
 
         try {
             return $this->container->call($routeHandler, $parameters);
         } catch (\Throwable $e) {
             throw new RuntimeException(
-                "Impossible d'exécuter le handler de la route : " . $e->getMessage(), 
-                0, 
-                $e
+                "Impossible d'exécuter le handler de la route : " . $e->getMessage(),
+                0,
+                $e,
             );
         }
     }

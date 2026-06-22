@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Factories;
+declare(strict_types=1);
+
+namespace Framework\Factories;
 
 use Relay\Relay;
-use App\Adapters\RelayHttpPipeline;
 use Psr\Container\ContainerInterface;
+use Framework\Adapters\RelayHttpPipeline;
 use Framework\Http\HttpPipelineInterface;
 
 /**
@@ -27,7 +29,7 @@ class HttpPipelineFactory
         // 1. Validation de l'existence de la clé de configuration
         if (!$container->has('app.middlewares')) {
             throw new \RuntimeException(
-                "Erreur de configuration critique : La clé 'app.middlewares' est manquante dans votre configuration système."
+                "Erreur de configuration critique : La clé 'app.middlewares' est manquante dans votre configuration système.",
             );
         }
 
@@ -37,7 +39,7 @@ class HttpPipelineFactory
         // 2. Validation du type de données (Sécurise le array_map)
         if (!is_array($middlewareClasses)) {
             throw new \RuntimeException(
-                "Erreur de configuration : La clé 'app.middlewares' doit obligatoirement être un tableau (array)."
+                "Erreur de configuration : La clé 'app.middlewares' doit obligatoirement être un tableau (array).",
             );
         }
 
@@ -50,7 +52,7 @@ class HttpPipelineFactory
 
         // 4. Assemblage de l'infrastructure
         $relay = new Relay($middlewares);
-    
+
         return new RelayHttpPipeline($relay);
     }
 }

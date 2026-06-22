@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Adapters;
+declare(strict_types=1);
 
-use Framework\Http\HttpPipelineInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+namespace Framework\Adapters;
+
 use Relay\Relay;
+use Psr\Http\Message\ResponseInterface;
+use Framework\Http\HttpPipelineInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Adaptateur pour le pipeline HTTP de Relay.
@@ -18,8 +20,7 @@ class RelayHttpPipeline implements HttpPipelineInterface
     /**
      * @param Relay $pipeline L'instance concrète du moteur de pipeline Relay.
      */
-    public function __construct(private Relay $pipeline)
-    {}
+    public function __construct(private Relay $pipeline) {}
 
     /**
      * Traite la requête HTTP entrante à travers la pile de middlewares de Relay.

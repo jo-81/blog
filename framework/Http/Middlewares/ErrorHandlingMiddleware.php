@@ -1,14 +1,16 @@
 <?php
 
-namespace App\Middlewares;
+declare(strict_types=1);
 
+namespace Framework\Http\Middlewares;
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Framework\Http\Exception\RouteNotFoundException;
 use Framework\Http\Exception\MethodNotAllowedException;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * Class ErrorHandlingMiddleware
@@ -25,7 +27,7 @@ class ErrorHandlingMiddleware implements MiddlewareInterface
      */
     public function __construct(
         private ResponseFactoryInterface $responseFactory,
-        private bool $isDebug
+        private bool $isDebug,
     ) {}
 
     /**
@@ -37,11 +39,11 @@ class ErrorHandlingMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         } catch (RouteNotFoundException $e) {
             // Gestion uniforme des 404 (Dev et Prod)
-            return $this->generateResponse(404, "Page Non Trouvée", $e->getMessage());
+            return $this->generateResponse(404, 'Page Non Trouvée', $e->getMessage());
 
         } catch (MethodNotAllowedException $e) {
             // Gestion uniforme des 405 (Dev et Prod)
-            return $this->generateResponse(405, "Méthode Non Autorisée", $e->getMessage());
+            return $this->generateResponse(405, 'Méthode Non Autorisée', $e->getMessage());
 
         } catch (\Throwable $e) {
             // STRATÉGIE POUR LES ERREURS 500 CRITIQUES
@@ -52,14 +54,18 @@ class ErrorHandlingMiddleware implements MiddlewareInterface
             }
 
             // En PROD : Sécurité maximale. On masque le bug et on logue en arrière-plan.
-            error_log(sprintf("[%s] Erreur Critique : %s dans %s à la ligne %d", 
-                date('Y-m-d H:i:s'), $e->getMessage(), $e->getFile(), $e->getLine()
+            error_log(sprintf(
+                '[%s] Erreur Critique : %s dans %s à la ligne %d',
+                date('Y-m-d H:i:s'),
+                $e->getMessage(),
+                $e->getFile(),
+                $e->getLine(),
             ));
 
             return $this->generateResponse(
-                500, 
-                "Erreur Interne du Serveur", 
-                "Une erreur imprévue est survenue. Nos équipes techniques ont été alertées."
+                500,
+                'Erreur Interne du Serveur',
+                'Une erreur imprévue est survenue. Nos équipes techniques ont été alertées.',
             );
         }
     }
@@ -76,17 +82,17 @@ class ErrorHandlingMiddleware implements MiddlewareInterface
     {
         $response = $this->responseFactory->createResponse($statusCode);
         $response = $response->withHeader('Content-Type', 'text/html; charset=utf-8');
-        
+
         $html = sprintf(
-            "<!DOCTYPE html><html><head><title>%s</title></head><body><h1>%d - %s</h1><p>%s</p></body></html>",
+            '<!DOCTYPE html><html><head><title>%s</title></head><body><h1>%d - %s</h1><p>%s</p></body></html>',
             htmlspecialchars($title),
             $statusCode,
             htmlspecialchars($title),
-            htmlspecialchars($message)
+            htmlspecialchars($message),
         );
 
         $response->getBody()->write($html);
-        
+
         return $response;
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Http;
 
 use Psr\Http\Message\ResponseInterface;
@@ -12,8 +14,7 @@ use Psr\Http\Message\ServerRequestInterface;
  */
 class Kernel
 {
-    public function __construct(private HttpPipelineInterface $pipeline, private ServerRequestInterface $request)
-    {}
+    public function __construct(private HttpPipelineInterface $pipeline, private ServerRequestInterface $request) {}
 
     /**
      * Gère la requête HTTP entrante et retourne la réponse générée par la pile de middlewares.

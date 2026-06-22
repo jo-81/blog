@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Http\Router;
 
 use Psr\Http\Message\ServerRequestInterface;
@@ -57,7 +59,7 @@ interface RouterInterface
      * @return Route L'instance de la route créée.
      */
     public function delete(string $path, mixed $handler): Route;
-    
+
     /**
      * Enregistre une collection de routes d'un seul coup.
      *

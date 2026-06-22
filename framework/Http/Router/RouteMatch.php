@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Http\Router;
 
 /**
@@ -13,7 +15,7 @@ class RouteMatch
      */
     public function __construct(
         private Route $route,
-        private array $arguments = []
+        private array $arguments = [],
     ) {}
 
     /**

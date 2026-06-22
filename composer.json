@@ -27,6 +27,11 @@
         "sort-packages": true
     },
     "require-dev": {
+        "pestphp/pest": "^1.23",
         "symfony/var-dumper": "^6.4"
+    },
+    "scripts": {
+        "test": "pest",
+        "test:coverage": "XDEBUG_MODE=coverage pest --coverage-html coverage-report"
     }
 }

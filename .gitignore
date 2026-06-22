@@ -2,3 +2,5 @@
 /.env
 /var/cache/
 /public/build/
+.phpunit.result.cache
+/coverage-report/

@@ -4,3 +4,4 @@
 /public/build/
 .phpunit.result.cache
 /coverage-report/
+.php-cs-fixer.cache

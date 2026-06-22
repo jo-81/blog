@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Support;
 
 /**
@@ -29,13 +31,13 @@ class ConfigGuard
                     // En production, on reste discret sur l'arborescence du serveur
                     // On log l'erreur complète en tâche de fond si nécessaire, et on lance un message générique
                     throw new \RuntimeException(
-                        "Une erreur interne critique est survenue lors de l'initialisation du système."
+                        "Une erreur interne critique est survenue lors de l'initialisation du système.",
                     );
                 }
 
                 // En développement (DEV), on donne un maximum de détails pour déboguer
                 throw new \RuntimeException(
-                    "Erreur d'infrastructure [Mode: {$env}] : Le fichier de configuration critique 'config/{$fileName}' est introuvable au chemin : {$path}."
+                    "Erreur d'infrastructure [Mode: {$env}] : Le fichier de configuration critique 'config/{$fileName}' est introuvable au chemin : {$path}.",
                 );
             }
         }

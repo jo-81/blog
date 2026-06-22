@@ -1,14 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Http\Middlewares;
 
 use Whoops\Run;
 use Whoops\Handler\PrettyPageHandler;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
 
 /**
  * Class WhoopsMiddleware
@@ -25,7 +27,7 @@ class WhoopsMiddleware implements MiddlewareInterface
      */
     public function __construct(
         private ResponseFactoryInterface $responseFactory,
-        private bool $isDebug
+        private bool $isDebug,
     ) {}
 
     /**

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Support;
 
-use RuntimeException;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
 use RegexIterator;
+use RuntimeException;
+use RecursiveIteratorIterator;
+use RecursiveDirectoryIterator;
 
 class ConfigScanner
 {

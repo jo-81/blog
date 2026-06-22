@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Factories;
 
 use RuntimeException;
@@ -30,16 +32,16 @@ class RouterFactory
         // Barrière de sécurité : Vérification de l'existence de la clé de configuration
         if (!$container->has('app.routes')) {
             throw new RuntimeException(
-                "Erreur de configuration critique : La clé 'app.routes' est manquante dans votre configuration système."
+                "Erreur de configuration critique : La clé 'app.routes' est manquante dans votre configuration système.",
             );
         }
 
         $routes = $container->get('app.routes');
-        
+
         // Barrière de sécurité : Validation du type de données attendu
         if (!is_array($routes)) {
             throw new RuntimeException(
-                "Erreur de configuration : La clé 'app.routes' doit obligatoirement être un tableau (array)."
+                "Erreur de configuration : La clé 'app.routes' doit obligatoirement être un tableau (array).",
             );
         }
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Http\Router;
 
 /**
@@ -17,7 +19,7 @@ class Route
         private array $methods,
         private string $path,
         private mixed $handler,
-        private ?string $name = null
+        private ?string $name = null,
     ) {
         // Normalisation des méthodes en majuscules (GET, POST...)
         $this->methods = array_map('strtoupper', $methods);
@@ -49,7 +51,7 @@ class Route
     public function name(string $name): self
     {
         $this->name = $name;
-        
+
         return $this;
     }
 }

@@ -1,18 +1,18 @@
 <?php
 
+use Middlewares\Whoops;
 use Middlewares\Debugbar;
 use Middlewares\AccessLog;
 use Middlewares\TrailingSlash;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Framework\Http\Middlewares\WhoopsMiddleware;
 use Framework\Http\Middlewares\RoutingMiddleware;
 use Framework\Http\Middlewares\ErrorHandlingMiddleware;
 use Framework\Http\Middlewares\RequestHandlerMiddleware;
 
 return [
     'app.middlewares' => [
-        WhoopsMiddleware::class,
+        Whoops::class,
         ErrorHandlingMiddleware::class,
         Debugbar::class,
         AccessLog::class,
@@ -22,11 +22,6 @@ return [
     ],
 
     ErrorHandlingMiddleware::class => fn(ContainerInterface $c) => new ErrorHandlingMiddleware(
-        $c->get(ResponseFactoryInterface::class),
-        $c->get('settings.debug')
-    ),
-
-    WhoopsMiddleware::class => fn(ContainerInterface $c) => new WhoopsMiddleware(
         $c->get(ResponseFactoryInterface::class),
         $c->get('settings.debug')
     ),

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "31853aa007df7564f6688edf6b2d4781",
+    "content-hash": "92d0c4014923365244e7f774ddbbe37c",
     "packages": [
         {
             "name": "filp/whoops",
@@ -423,6 +423,62 @@
                 "source": "https://github.com/middlewares/utils/tree/v4.0.2"
             },
             "time": "2025-01-23T13:33:55+00:00"
+        },
+        {
+            "name": "middlewares/whoops",
+            "version": "v2.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/middlewares/whoops.git",
+                "reference": "51568de566dce840683c81ae6ea7a269e45c553f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/middlewares/whoops/zipball/51568de566dce840683c81ae6ea7a269e45c553f",
+                "reference": "51568de566dce840683c81ae6ea7a269e45c553f",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "^2.17",
+                "middlewares/utils": "^2 || ^3 || ^4",
+                "php": "^7.2 || ^8.0",
+                "psr/container": "^1.0 || ^2.0",
+                "psr/http-server-middleware": "^1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "laminas/laminas-diactoros": "^2 || ^3",
+                "oscarotero/php-cs-fixer-config": "^2",
+                "phpstan/phpstan": "^1 || ^2",
+                "phpunit/phpunit": "^8 || ^9",
+                "squizlabs/php_codesniffer": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Middlewares\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Middleware to use Whoops as error handler",
+            "homepage": "https://github.com/middlewares/whoops",
+            "keywords": [
+                "error",
+                "http",
+                "middleware",
+                "psr-15",
+                "psr-7",
+                "server",
+                "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/middlewares/whoops/issues",
+                "source": "https://github.com/middlewares/whoops/tree/v2.1.1"
+            },
+            "time": "2025-04-27T11:33:14+00:00"
         },
         {
             "name": "monolog/monolog",

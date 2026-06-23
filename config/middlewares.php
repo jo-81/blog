@@ -1,5 +1,6 @@
 <?php
 
+use Middlewares\Debugbar;
 use Middlewares\TrailingSlash;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -12,6 +13,7 @@ return [
     'app.middlewares' => [
         WhoopsMiddleware::class,
         ErrorHandlingMiddleware::class,
+        Debugbar::class,
         TrailingSlash::class,
         RoutingMiddleware::class,
         RequestHandlerMiddleware::class,

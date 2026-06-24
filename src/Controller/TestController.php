@@ -18,4 +18,12 @@ class TestController
 
         return $response;
     }
+
+    public function postsList(): ResponseInterface
+    {
+        $response = $this->responseFactory->createResponse(200);
+        $response->getBody()->write('<h1>Liste des cours</h1>');
+
+        return $response;
+    }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92d0c4014923365244e7f774ddbbe37c",
+    "content-hash": "eed7aa36dc72b5038c09dbc7e25a6f7f",
     "packages": [
         {
             "name": "filp/whoops",
@@ -310,6 +310,63 @@
                 "source": "https://github.com/middlewares/debugbar/tree/v2.2.0"
             },
             "time": "2025-03-23T20:01:50+00:00"
+        },
+        {
+            "name": "middlewares/error-handler",
+            "version": "v3.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/middlewares/error-handler.git",
+                "reference": "22b76cbc49f7bf5386b3a1aeac093beae75c2b88"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/middlewares/error-handler/zipball/22b76cbc49f7bf5386b3a1aeac093beae75c2b88",
+                "reference": "22b76cbc49f7bf5386b3a1aeac093beae75c2b88",
+                "shasum": ""
+            },
+            "require": {
+                "ext-gd": "*",
+                "middlewares/utils": "^2 || ^3 || ^4",
+                "php": "^7.2 || ^8.0",
+                "psr/http-server-middleware": "^1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3",
+                "laminas/laminas-diactoros": "^2 || ^3",
+                "oscarotero/php-cs-fixer-config": "^2",
+                "phpstan/phpstan": "^1 || ^2",
+                "phpunit/phpunit": "^8 || ^9",
+                "squizlabs/php_codesniffer": "^3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Middlewares\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Middleware to handle http errors",
+            "homepage": "https://github.com/middlewares/error-handler",
+            "keywords": [
+                "error",
+                "exception",
+                "formatter",
+                "handler",
+                "http",
+                "middleware",
+                "psr-15",
+                "psr-7",
+                "server"
+            ],
+            "support": {
+                "issues": "https://github.com/middlewares/error-handler/issues",
+                "source": "https://github.com/middlewares/error-handler/tree/v3.1.0"
+            },
+            "time": "2025-03-22T16:22:49+00:00"
         },
         {
             "name": "middlewares/trailing-slash",

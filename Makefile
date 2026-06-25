@@ -39,7 +39,7 @@ test-cover:
 	$(EXEC_PHP) XDEBUG_MODE=coverage vendor/bin/pest --coverage
 
 check:
-	$(EXEC_PHP) vendor/bin/phpstan analyse
+	$(EXEC_PHP) vendor/bin/phpstan analyse --memory-limit=-1
 
 lint:
 	$(EXEC_PHP) vendor/bin/php-cs-fixer check --diff

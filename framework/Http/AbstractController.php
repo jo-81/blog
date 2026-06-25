@@ -1,0 +1,36 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Framework\Http;
+
+use DI\Attribute\Inject;
+use Psr\Http\Message\ResponseInterface;
+use Framework\Renderer\RendererInterface;
+use Psr\Http\Message\ResponseFactoryInterface;
+
+/**
+ * Contrôleur de base offrant des fonctionnalités communes à tous les contrôleurs.
+ */
+abstract class AbstractController
+{
+    #[Inject]
+    protected RendererInterface $renderer;
+
+    #[Inject]
+    protected ResponseFactoryInterface $responseFactory;
+
+    /**
+     * Génère une réponse HTTP HTML à partir d'un template.
+     *
+     * @param string $template Le nom du fichier de template (ex: 'pages/portfolio.twig').
+     * @param array<string, mixed> $data Les variables à passer au template.
+     * @param int $statusCode Le code de statut HTTP (200 par défaut).
+     */
+    protected function render(string $template, array $data = [], int $statusCode = 200): ResponseInterface
+    {
+        $baseResponse = $this->responseFactory->createResponse($statusCode);
+
+        return $this->renderer->renderResponse($baseResponse, $template, $data);
+    }
+}

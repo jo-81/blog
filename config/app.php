@@ -1,5 +1,11 @@
 <?php
 
-// Paramètres génériques de l'application (nom, environnement, etc.)
+use Twig\Extension\DebugExtension;
 
-return [];
+use function DI\autowire;
+
+return [
+    'app.twig_extensions' => [
+        DebugExtension::class => autowire(DebugExtension::class),
+    ]
+];

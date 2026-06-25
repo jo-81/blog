@@ -5,6 +5,7 @@ use Framework\Support\ConfigGuard;
 use Framework\Support\ConfigScanner;
 
 $builder = new ContainerBuilder();
+$builder->useAttributes(true);
 
 $servicesConfigPath = __DIR__ . '/services.php';
 

@@ -16,7 +16,10 @@
     },
     "require": {
         "php": ">=8.1",
+        "cycle/annotated": "^4.6",
+        "cycle/database": "^2.21",
         "cycle/orm": "^2.18",
+        "cycle/schema-builder": "^2.12",
         "filp/whoops": "^2.18",
         "middlewares/access-log": "^2.2",
         "middlewares/debugbar": "^2.2",

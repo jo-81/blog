@@ -1,5 +1,7 @@
 <?php
 
+use Framework\Database\EntityManagerInterface;
+use Framework\Factories\CycleORMFactory;
 use Psr\Log\LoggerInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Framework\Factories\LoggerFactory;
@@ -20,4 +22,5 @@ return [
     ResponseFactoryInterface::class => DI\get(Psr17Factory::class),
     LoggerInterface::class => DI\factory(LoggerFactory::class),
     RendererInterface::class => DI\factory(TwigRendererFactory::class),
+    EntityManagerInterface::class => DI\factory(CycleORMFactory::class),
 ];

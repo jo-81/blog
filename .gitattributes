@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------------------
+# 1. Gestion des fins de lignes (Line Endings)
+# Force les fichiers texte à utiliser les sauts de ligne LF (Unix) partout,
+# ce qui évite les conflits entre Windows (CRLF) et les conteneurs Docker (LF).
+# ---------------------------------------------------------------------------
+* text=auto eol=lf
+
+# Fichiers spécifiques qui doivent absolument conserver des fins de lignes Unix
+*.php text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.twig text eol=lf
+*.css text eol=lf
+*.scss text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+
+# Fichiers de configuration systèmes et scripts
+*.sh text eol=lf
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+
+# ---------------------------------------------------------------------------
+# 2. Fichiers Binaires (Ne doivent pas être modifiés par Git)
+# ---------------------------------------------------------------------------
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.webp binary
+*.ico binary
+
+# ---------------------------------------------------------------------------
+# 3. Optimisation pour l'export (git archive / Composer package release)
+# Ces fichiers seront ignorés si le projet est exporté ou téléchargé via Composer.
+# ---------------------------------------------------------------------------
+/.github/           export-ignore
+/tests/             export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+/docker-compose.yml export-ignore
+/Dockerfile         export-ignore
+/phpunit.xml        export-ignore
+/pest.xml           export-ignore
+/phpstan.neon       export-ignore

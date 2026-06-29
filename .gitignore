@@ -6,3 +6,4 @@
 /coverage-report/
 .php-cs-fixer.cache
 /var/
+/node_modules/

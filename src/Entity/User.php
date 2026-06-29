@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Enums\UserRole;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 #[Entity(
     role: 'user',
     table: 'user',
+    typecast: [
+        'role' => UserRole::class,
+    ],
 )]
 class User
 {
@@ -24,6 +28,9 @@ class User
 
     #[Column(type: 'string(255)')]
     private ?string $password = null;
+
+    #[Column(type: 'string', default: 'user')]
+    private UserRole $role = UserRole::USER;
 
     #[Column(type: 'datetime', name: 'created_at')]
     private \DateTimeImmutable $createdAt;
@@ -77,5 +84,16 @@ class User
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->createdAt;
+    }
+
+    public function getRole(): UserRole
+    {
+        return $this->role;
+    }
+
+    public function setRole(UserRole $role): self
+    {
+        $this->role = $role;
+        return $this;
     }
 }

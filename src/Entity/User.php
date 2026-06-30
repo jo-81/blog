@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use App\Enums\UserRole;
+use App\Repository\UserRepository;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 #[Entity(
     role: 'user',
     table: 'user',
+    repository: UserRepository::class,
     typecast: [
         'role' => UserRole::class,
     ],

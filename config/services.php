@@ -1,19 +1,21 @@
 <?php
 
 use Framework\Database\EntityManagerInterface;
+use Framework\Database\UserRepositoryInterface;
 use Framework\Factories\CycleORMFactory;
-use Psr\Log\LoggerInterface;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use Framework\Factories\CycleUserFactory;
+use Framework\Factories\HttpPipelineFactory;
 use Framework\Factories\LoggerFactory;
 use Framework\Factories\RouterFactory;
+use Framework\Factories\ServerRequestFactory;
+use Framework\Factories\TwigRendererFactory;
 use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
-use Framework\Factories\HttpPipelineFactory;
-use Framework\Factories\TwigRendererFactory;
-use Psr\Http\Message\ServerRequestInterface;
-use Framework\Factories\ServerRequestFactory;
 use Framework\Renderer\RendererInterface;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Log\LoggerInterface;
 
 return [
     HttpPipelineInterface::class => DI\factory(HttpPipelineFactory::class),
@@ -23,4 +25,5 @@ return [
     LoggerInterface::class => DI\factory(LoggerFactory::class),
     RendererInterface::class => DI\factory(TwigRendererFactory::class),
     EntityManagerInterface::class => DI\factory(CycleORMFactory::class),
+    UserRepositoryInterface::class => DI\factory(CycleUserFactory::class),
 ];

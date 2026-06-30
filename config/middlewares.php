@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Http\Middlewares\CsrfMiddleware;
 use Middlewares\Whoops;
 use Middlewares\Debugbar;
 use Middlewares\AccessLog;
@@ -19,6 +20,7 @@ return [
         TrailingSlash::class,
         RoutingMiddleware::class,
         SessionMiddleware::class,
+        CsrfMiddleware::class,
         RequestHandlerMiddleware::class,
     ],
 

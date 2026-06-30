@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Factories;
 
 use Framework\Session\PHPSession;
-use Framework\Session\SessionInterface;
 use Psr\Container\ContainerInterface;
+use Framework\Session\SessionInterface;
 
 class PHPSessionFactory
 {
@@ -17,7 +19,7 @@ class PHPSessionFactory
             'cookie_httponly' => true,
             'cookie_samesite' => 'Lax',
         ];
-        
+
         if ($container->has('config.session')) {
             $config = $container->get('config.session');
 

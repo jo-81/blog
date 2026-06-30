@@ -2,6 +2,7 @@
 
 use Framework\Database\EntityManagerInterface;
 use Framework\Database\UserRepositoryInterface;
+use Framework\Factories\CsrfTokenManagerFactory;
 use Framework\Factories\CycleORMFactory;
 use Framework\Factories\CycleUserFactory;
 use Framework\Factories\HttpPipelineFactory;
@@ -13,6 +14,7 @@ use Framework\Factories\TwigRendererFactory;
 use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
 use Framework\Renderer\RendererInterface;
+use Framework\Security\CsrfTokenManagerInterface;
 use Framework\Session\SessionInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -29,4 +31,5 @@ return [
     EntityManagerInterface::class => DI\factory(CycleORMFactory::class),
     UserRepositoryInterface::class => DI\factory(CycleUserFactory::class),
     SessionInterface::class => DI\factory(PHPSessionFactory::class),
+    CsrfTokenManagerInterface::class => DI\factory(CsrfTokenManagerFactory::class),
 ];

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Factories;
 
 use App\Entity\User;
+use Psr\Container\ContainerInterface;
 use Framework\Database\EntityManagerInterface;
 use Framework\Database\UserRepositoryInterface;
-use Psr\Container\ContainerInterface;
 
 class CycleUserFactory
 {

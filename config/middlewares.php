@@ -8,6 +8,7 @@ use Middlewares\TrailingSlash;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Framework\Http\Middlewares\RoutingMiddleware;
 use Framework\Http\Middlewares\RequestHandlerMiddleware;
+use Framework\Http\Middlewares\SessionMiddleware;
 
 return [
     'app.middlewares' => [
@@ -17,6 +18,7 @@ return [
         AccessLog::class,
         TrailingSlash::class,
         RoutingMiddleware::class,
+        SessionMiddleware::class,
         RequestHandlerMiddleware::class,
     ],
 

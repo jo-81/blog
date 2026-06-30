@@ -6,12 +6,14 @@ use Framework\Factories\CycleORMFactory;
 use Framework\Factories\CycleUserFactory;
 use Framework\Factories\HttpPipelineFactory;
 use Framework\Factories\LoggerFactory;
+use Framework\Factories\PHPSessionFactory;
 use Framework\Factories\RouterFactory;
 use Framework\Factories\ServerRequestFactory;
 use Framework\Factories\TwigRendererFactory;
 use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
 use Framework\Renderer\RendererInterface;
+use Framework\Session\SessionInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,4 +28,5 @@ return [
     RendererInterface::class => DI\factory(TwigRendererFactory::class),
     EntityManagerInterface::class => DI\factory(CycleORMFactory::class),
     UserRepositoryInterface::class => DI\factory(CycleUserFactory::class),
+    SessionInterface::class => DI\factory(PHPSessionFactory::class),
 ];

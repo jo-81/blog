@@ -15,7 +15,7 @@ return [
     'app.middlewares' => [
         Whoops::class,
         // ErrorHandler::class,
-        Debugbar::class,
+        // Debugbar::class,
         AccessLog::class,
         TrailingSlash::class,
         RoutingMiddleware::class,

@@ -21,9 +21,9 @@ RUN pecl install xdebug-3.1.6 && docker-php-ext-enable xdebug
 RUN a2enmod rewrite
 
 # Modification du DocumentRoot d'Apache pour pointer directement sur le dossier public/
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+RUN sed -rif -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf.d/*.conf 2>/dev/null || true
 
 # Augmentation de la taille limite d'upload de fichiers
 RUN echo "upload_max_filesize = 20M" > /usr/local/etc/php/conf.d/uploads.ini \

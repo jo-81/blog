@@ -18,7 +18,7 @@ return [
         return new ViteAssetExtension(
             $_ENV['APP_ENV'] ?? 'dev',
             dirname(__DIR__) . '/public',
-            $_ENV['VITE_SERVER_URL'] ?? 'http://localhost:5173'
+            $_ENV['VITE_SERVER_URL'] ?? 'http://localhost:3000'
         );
     },
 ];

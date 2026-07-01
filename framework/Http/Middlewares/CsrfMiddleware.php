@@ -14,7 +14,7 @@ use Framework\Security\CsrfTokenManagerInterface;
 
 class CsrfMiddleware implements MiddlewareInterface
 {
-    private const FORM_FIELD = '_csrf';
+    private const FORM_FIELD = '_csrf_token';
 
     public function __construct(private CsrfTokenManagerInterface $tokenManager) {}
 

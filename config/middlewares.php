@@ -14,7 +14,7 @@ use Framework\Http\Middlewares\SessionMiddleware;
 return [
     'app.middlewares' => [
         Whoops::class,
-        ErrorHandler::class,
+        // ErrorHandler::class,
         Debugbar::class,
         AccessLog::class,
         TrailingSlash::class,

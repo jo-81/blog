@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\ViteAssetExtension;
 use Psr\Container\ContainerInterface;
 use Twig\Extension\DebugExtension;
@@ -10,6 +11,7 @@ return [
     'app.twig_extensions' => [
         DebugExtension::class => autowire(DebugExtension::class),
         ViteAssetExtension::class => DI\get(ViteAssetExtension::class),
+        CsrfExtension::class => autowire(CsrfExtension::class),
     ],
 
     ViteAssetExtension::class => function (ContainerInterface $c) {

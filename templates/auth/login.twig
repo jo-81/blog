@@ -1,0 +1,24 @@
+{% extends 'base.twig' %}
+
+{% block content %}
+    <section class="container">
+        <h1>Connexion</h1>
+        <form method="POST">
+            <div>
+                <label for="username">Pseudo</label>
+                <input type="text" id="username" name="username" required autofocus/>
+            </div>
+
+            <div>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password"/>
+            </div>
+
+            {{ csrf_token() }}
+
+            <div>
+                <button type="submit">Connexion</button>
+            </div>
+        </form>
+    </section>
+{% endblock %}

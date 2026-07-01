@@ -7,6 +7,7 @@ namespace Framework\Http;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Framework\Renderer\RendererInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 
 /**
@@ -20,6 +21,9 @@ abstract class AbstractController
     #[Inject]
     protected ResponseFactoryInterface $responseFactory;
 
+    #[Inject]
+    protected ServerRequestInterface $request;
+
     /**
      * Génère une réponse HTTP HTML à partir d'un template.
      *
@@ -32,5 +36,17 @@ abstract class AbstractController
         $baseResponse = $this->responseFactory->createResponse($statusCode);
 
         return $this->renderer->renderResponse($baseResponse, $template, $data);
+    }
+
+    /**
+     * Génère une réponse de redirection HTTP.
+     * @param string $url L'URL vers laquelle rediriger
+     * @param int $statusCode Le code statut HTTP (302 par défaut)
+     */
+    protected function redirect(string $url, int $statusCode = 302): ResponseInterface
+    {
+        $response = $this->responseFactory->createResponse($statusCode);
+
+        return $response->withHeader('Location', $url);
     }
 }

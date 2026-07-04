@@ -1,24 +1,54 @@
 {% extends 'base.twig' %}
 
+{% block page_title %}Connexion{% endblock %}
+
 {% block content %}
-    <section class="container">
-        <h1 class="text-primary">Connexion</h1>
-        <form method="POST">
-            <div class="mb-3">
-                <label class="form-label" for="username">Pseudo</label>
-                <input class="form-control" type="text" id="username" name="username" required/>
-            </div>
+    <section class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
 
-            <div class="mb-3">
-                <label class="form-label" for="password">Mot de passe</label>
-                <input class="form-control" type="password" id="password" name="password"/>
-            </div>
+        <div class="card-auth w-100">
+            <header class="text-center mb-5">
+                <a href="/" class="auth-logo">
+                    <i class="bi bi-code-slash"></i> Dev<span>Blog</span>
+                </a>
+            </header>
 
-            {{ csrf_token() }}
+            <form method="POST" class="card card-body shadow needs-validation">
+                <h1 class="mb-4 h5">Connexion</h1>
 
-            <div>
-                <button class="btn btn-primary" type="submit">Connexion</button>
-            </div>
-        </form>
+                {% if message_error_login is defined %}
+                    <div class="alert alert-danger mb-3 text-small">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ message_error_login }}
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label class="form-label text-uppercase" for="email">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                        <input type="email" id="email" name="email" class="form-control {% if errors.email is defined %}is-invalid{% endif %}" autocomplete="email" placeholder="votre@email.com" required />
+                        {% if errors.email is defined %}
+                            <div class="invalid-feedback">{{ errors.email }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-uppercase" for="password">Mot de passe</label>
+                    <div class="input-group">
+                        <span class="input-group-text">
+                            <i class="bi bi-lock"></i>
+                        </span>
+                        <input class="form-control" type="password" id="password" name="password" placeholder="••••••••"/>
+                    </div>
+                </div>
+
+                {{ csrf_token() }}
+
+                <button class="btn btn-link" type="submit">Se connecter <i class="bi bi-arrow-right ms-1"></i></button>
+            </form>
+        </div>
+
     </section>
 {% endblock %}

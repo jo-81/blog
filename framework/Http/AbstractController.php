@@ -7,6 +7,7 @@ namespace Framework\Http;
 use DI\Attribute\Inject;
 use Psr\Http\Message\ResponseInterface;
 use Framework\Renderer\RendererInterface;
+use Framework\Session\MessageFlashInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 
@@ -23,6 +24,9 @@ abstract class AbstractController
 
     #[Inject]
     protected ServerRequestInterface $request;
+
+    #[Inject]
+    protected MessageFlashInterface $flash;
 
     /**
      * Génère une réponse HTTP HTML à partir d'un template.

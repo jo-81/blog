@@ -12,8 +12,6 @@ class LoginController extends AbstractController
     public function login(): ResponseInterface
     {
         if ($this->request->getMethod() == 'POST') {
-
-            return $this->redirect('/');
         }
 
         return $this->render('/auth/login.twig');

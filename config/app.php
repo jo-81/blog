@@ -1,6 +1,7 @@
 <?php
 
 use Framework\Renderer\TwigExtensions\CsrfExtension;
+use Framework\Renderer\TwigExtensions\MessageFlashExtension;
 use Framework\Renderer\TwigExtensions\ViteAssetExtension;
 use Psr\Container\ContainerInterface;
 use Twig\Extension\DebugExtension;
@@ -12,6 +13,7 @@ return [
         DebugExtension::class => autowire(DebugExtension::class),
         ViteAssetExtension::class => DI\get(ViteAssetExtension::class),
         CsrfExtension::class => autowire(CsrfExtension::class),
+        MessageFlashExtension::class => autowire(MessageFlashExtension::class),
     ],
 
     ViteAssetExtension::class => function (ContainerInterface $c) {

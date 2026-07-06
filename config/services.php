@@ -15,6 +15,8 @@ use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
 use Framework\Renderer\RendererInterface;
 use Framework\Security\CsrfTokenManagerInterface;
+use Framework\Session\MessageFlash;
+use Framework\Session\MessageFlashInterface;
 use Framework\Session\SessionInterface;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseFactoryInterface;
@@ -32,4 +34,5 @@ return [
     UserRepositoryInterface::class => DI\factory(CycleUserFactory::class),
     SessionInterface::class => DI\factory(PHPSessionFactory::class),
     CsrfTokenManagerInterface::class => DI\factory(CsrfTokenManagerFactory::class),
+    MessageFlashInterface::class => DI\get(MessageFlash::class),
 ];

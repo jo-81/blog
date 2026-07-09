@@ -42,6 +42,7 @@ class CycleORMFactory
                     connection: new Config\MySQL\TcpConnectionConfig(
                         database: $_ENV['DATABASE_NAME'] ?? 'framework_blog',
                         host: $_ENV['DATABASE_HOST'] ?? 'db',
+                        port: (int) ($_ENV['DATABASE_PORT'] ?? 3306),
                         user: $_ENV['DATABASE_USER'] ?? 'user',
                         password: $_ENV['DATABASE_PASSWORD'] ?? 'password',
                         charset: 'utf8mb4',
@@ -80,7 +81,7 @@ class CycleORMFactory
         );
 
         $orm = new ORM(
-            factory: new CycleFactory($dbal, RelationConfig::getDefault()),
+            factory: new CycleFactory($dbal, RelationConfig::getDefault(), null),
             schema: new \Cycle\ORM\Schema($schema),
         );
 

@@ -1,0 +1,36 @@
+{% extends 'base.twig' %}
+
+{% block page_title %}Connexion{% endblock %}
+
+{% block content %}
+    <section class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
+        <div class="card-auth w-100">
+            <header class="text-center mb-5">
+                <a href="/" class="auth-logo">
+                    <i class="bi bi-code-slash"></i> Dev<span>Blog</span>
+                </a>
+            </header>
+
+            <form method="POST" class="card card-body shadow needs-validation" novalidate>
+                <h1 class="mb-4 h5">Connexion</h1>
+
+                {% if messages = get_flashes('error') %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger mb-3 text-small">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+                {{ form_row(form, 'email') }}
+
+                {{ form_row(form, 'password') }}
+
+                {{ csrf_token() }}
+
+                <button class="btn btn-link" type="submit">Se connecter <i class="bi bi-arrow-right ms-1"></i></button>
+            </form>
+        </div>
+
+    </section>
+{% endblock %}

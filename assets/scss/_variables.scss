@@ -1,0 +1,41 @@
+// COLORS
+$primary: #0F172A;
+$body-bg: $primary;
+$body-color: #E2E8F0;
+$text-muted: #94A3B8;
+$link: #38BDF8;
+$danger: #F87171;
+$success: #34D399;
+
+// FONT FAMILLY
+$font-family-base: 'JetBrains Mono', monospace;
+$display-font-family: 'JetBrains Mono', monospace;
+
+// BORDER
+$border-color: #334155;
+
+// CARD
+$card-bg: #1E293B;
+$card-border-radius: 14px;
+$card-border-color: $border-color;
+$card-spacer-y: 2.5rem;
+$card-spacer-x: 2.5rem;
+
+// FORM
+$input-bg: #263144;
+$input-group-addon-bg: $input-bg;
+$form-label-color: $text-muted;
+$form-label-font-size: 0.8rem;
+$form-label-font-weight: 600;
+$input-focus-border-color: $link;
+$input-placeholder-color: $text-muted;
+$input-padding-y: 0.65rem;
+$input-padding-x: 1rem;
+
+// LINK
+$link-decoration: none;
+$link-color: $link;
+
+// ALERT
+$alert-padding-y: 1.1rem;
+$alert-padding-x: 0.8rem;

@@ -1,0 +1,16 @@
+{% macro input(name, type = 'text', options = [], error = null, value = null) %}
+    <input 
+        type="{{ type }}" 
+        id="{{ name }}"
+        name="{{ name }}"
+        {% if value is defined and error is not null %}value="{{ value }}"{% endif %}
+        class="form-control {% if error is defined and error is not null %}is-invalid{% endif %}"
+        {% if options.required %}required{% endif %}
+        {% if options.placeholder %}placeholder="{{ options.placeholder }}"{% endif %}
+        {% if options.autocomplete %}autocomplete="{{ options.autocomplete }}"{% endif %}
+    />
+{% endmacro %}
+
+{% macro label(name, label) %}
+    <label for="{{ name }}" class="form-label text-uppercase" for="{{ name }}">{{ label }}</label>
+{% endmacro %}

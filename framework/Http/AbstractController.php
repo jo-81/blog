@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Framework\Http;
 
 use DI\Attribute\Inject;
+use Framework\Form\FormInterface;
 use Psr\Http\Message\ResponseInterface;
+use Framework\Form\FormFactoryInterface;
 use Framework\Renderer\RendererInterface;
 use Framework\Session\MessageFlashInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -27,6 +29,9 @@ abstract class AbstractController
 
     #[Inject]
     protected MessageFlashInterface $flash;
+
+    #[Inject]
+    protected FormFactoryInterface $formFactory;
 
     /**
      * Génère une réponse HTTP HTML à partir d'un template.
@@ -52,5 +57,12 @@ abstract class AbstractController
         $response = $this->responseFactory->createResponse($statusCode);
 
         return $response->withHeader('Location', $url);
+    }
+
+    protected function createForm(string $formType, mixed $data = null, array $options = []): FormInterface
+    {
+        $form = $this->formFactory->create($formType, $data, $options);
+
+        return $form->handleRequest($this->request);
     }
 }

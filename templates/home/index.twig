@@ -2,4 +2,11 @@
 
 {% block content %}
     <h1>Homepage</h1>
+    {% if messages = get_flashes('success') %}
+                    {% for message in messages %}
+                    <div class="alert alert-success mb-3 text-small">
+                        <i class="bi bi-check me-2"></i> {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
 {% endblock %}

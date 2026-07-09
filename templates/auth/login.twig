@@ -4,7 +4,6 @@
 
 {% block content %}
     <section class="d-flex align-items-center justify-content-center" style="min-height: 100vh">
-
         <div class="card-auth w-100">
             <header class="text-center mb-5">
                 <a href="/" class="auth-logo">
@@ -12,39 +11,20 @@
                 </a>
             </header>
 
-            <form method="POST" class="card card-body shadow needs-validation">
+            <form method="POST" class="card card-body shadow needs-validation" novalidate>
                 <h1 class="mb-4 h5">Connexion</h1>
 
                 {% if messages = get_flashes('error') %}
                     {% for message in messages %}
                     <div class="alert alert-danger mb-3 text-small">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ message.form_errors }}
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ message }}
                     </div>
                     {% endfor %}
                 {% endif %}
 
-                <div class="mb-3">
-                    <label class="form-label text-uppercase" for="email">Email</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="bi bi-envelope"></i>
-                        </span>
-                        <input type="email" id="email" name="email" class="form-control {% if errors.email is defined %}is-invalid{% endif %}" autocomplete="email" placeholder="votre@email.com" required />
-                        {% if errors.email is defined %}
-                            <div class="invalid-feedback">{{ errors.email }}</div>
-                        {% endif %}
-                    </div>
-                </div>
+                {{ form_row(form, 'email') }}
 
-                <div class="mb-4">
-                    <label class="form-label text-uppercase" for="password">Mot de passe</label>
-                    <div class="input-group">
-                        <span class="input-group-text">
-                            <i class="bi bi-lock"></i>
-                        </span>
-                        <input class="form-control" type="password" id="password" name="password" placeholder="••••••••"/>
-                    </div>
-                </div>
+                {{ form_row(form, 'password') }}
 
                 {{ csrf_token() }}
 

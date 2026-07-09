@@ -13,9 +13,9 @@ use Cycle\Annotated\Annotation\Entity;
     role: 'user',
     table: 'user',
     repository: UserRepository::class,
-    typecast: [
-        'role' => UserRole::class,
-    ],
+    // typecast: [
+    //     'role' => UserRole::class,
+    // ],
 )]
 class User
 {
@@ -31,7 +31,7 @@ class User
     #[Column(type: 'string(255)')]
     private ?string $password = null;
 
-    #[Column(type: 'string', default: 'user')]
+    #[Column(type: 'string', default: 'user', typecast: UserRole::class)]
     private UserRole $role = UserRole::USER;
 
     #[Column(type: 'datetime', name: 'created_at')]
@@ -59,7 +59,7 @@ class User
         return $this;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
     }

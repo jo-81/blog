@@ -8,5 +8,6 @@ return [
     'app.routes' => [
         new Route(['GET'], "/", [HomeController::class, 'index'], 'homepage'),
         new Route(['GET', 'POST'], "/connexion", [LoginController::class, 'login'], 'app.login'),
+        new Route(['GET'], "/logout", [LoginController::class, 'logout'], 'app.logout'),
     ],
 ];

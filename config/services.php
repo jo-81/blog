@@ -5,12 +5,14 @@ use Framework\Database\UserRepositoryInterface;
 use Framework\Factories\CsrfTokenManagerFactory;
 use Framework\Factories\CycleORMFactory;
 use Framework\Factories\CycleUserFactory;
+use Framework\Factories\FormFactory;
 use Framework\Factories\HttpPipelineFactory;
 use Framework\Factories\LoggerFactory;
 use Framework\Factories\PHPSessionFactory;
 use Framework\Factories\RouterFactory;
 use Framework\Factories\ServerRequestFactory;
 use Framework\Factories\TwigRendererFactory;
+use Framework\Form\FormFactoryInterface;
 use Framework\Http\HttpPipelineInterface;
 use Framework\Http\Router\RouterInterface;
 use Framework\Renderer\RendererInterface;
@@ -35,4 +37,5 @@ return [
     SessionInterface::class => DI\factory(PHPSessionFactory::class),
     CsrfTokenManagerInterface::class => DI\factory(CsrfTokenManagerFactory::class),
     MessageFlashInterface::class => DI\get(MessageFlash::class),
+    FormFactoryInterface::class => DI\get(FormFactory::class),
 ];

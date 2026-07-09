@@ -81,7 +81,7 @@ class CycleORMFactory
         );
 
         $orm = new ORM(
-            factory: new CycleFactory($dbal, RelationConfig::getDefault()),
+            factory: new CycleFactory($dbal, RelationConfig::getDefault(), null),
             schema: new \Cycle\ORM\Schema($schema),
         );
 

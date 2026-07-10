@@ -7,9 +7,14 @@ $link: #38BDF8;
 $danger: #F87171;
 $success: #34D399;
 
-// FONT FAMILLY
+$surface: #1E293B;
+$elevated: #263144;
+
+// FONT FAMILLY - TYPO
 $font-family-base: 'JetBrains Mono', monospace;
 $display-font-family: 'JetBrains Mono', monospace;
+$small-size: 0.75rem;
+$small-md: 0.875rem;
 
 // BORDER
 $border-color: #334155;
@@ -39,3 +44,16 @@ $link-color: $link;
 // ALERT
 $alert-padding-y: 1.1rem;
 $alert-padding-x: 0.8rem;
+
+// DROPDOWN
+$dropdown-bg: $elevated;
+$dropdown-font-size: $small-md;
+$dropdown-link-color: $text-muted;
+$dropdown-border-radius: 1rem;
+$dropdown-padding-x: 0.5rem;
+$dropdown-padding-y: 0.5rem;
+$dropdown-item-padding-y: 0.5rem;
+$dropdown-item-padding-x: 0.5rem;
+$dropdown-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+$dropdown-link-hover-color: $link;
+$dropdown-link-hover-bg: rgba($link, 0.10);

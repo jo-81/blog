@@ -10,7 +10,15 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     {{ vite_asset('assets/js/app.js') }}
 </head>
-<body>
-    {% block content %}{% endblock %}
+<body class="admin">
+
+    {% include "admin/partials/_navbar.twig" %}
+
+    <main class="admin-main">
+        {% include "admin/partials/_toolbar.twig" %}
+        <section class="admin-content px-4 py-5">
+            {% block content %}{% endblock %}
+        </section>
+    </main>
 </body>
 </html>

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Framework\Security\Auth;
 
 use App\Entity\User;
-use Framework\Database\UserRepositoryInterface;
+use Psr\Log\LoggerInterface;
 use Framework\Session\SessionInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Log\LoggerInterface;
+use Framework\Database\UserRepositoryInterface;
 
 class Authentication
 {

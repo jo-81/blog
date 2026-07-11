@@ -22,6 +22,8 @@
         <env name="APP_ENV" value="testing"/>
         <env name="APP_DEBUG" value="true"/>
         
-        <env name="DB_NAME" value="blog_test"/>
+        <env name="DATABASE_NAME" value="blog_test"/>
+        <env name="DATABASE_USER" value="root"/>
+        <env name="DATABASE_PASSWORD" value="root"/>
     </php>
 </phpunit>

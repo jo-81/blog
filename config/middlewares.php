@@ -10,6 +10,7 @@ use Middlewares\ErrorHandler;
 use Middlewares\TrailingSlash;
 use Middlewares\Whoops;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Framework\Http\Middlewares\AuthentificationMiddleware;
 
 return [
     'app.middlewares' => [
@@ -20,6 +21,7 @@ return [
         TrailingSlash::class,
         RoutingMiddleware::class,
         SessionMiddleware::class,
+        AuthentificationMiddleware::class,
         CsrfMiddleware::class,
         RequestHandlerMiddleware::class,
     ],

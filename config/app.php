@@ -1,5 +1,6 @@
 <?php
 
+use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
 use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\FormTypeExtension;
 use Framework\Renderer\TwigExtensions\MessageFlashExtension;
@@ -40,6 +41,7 @@ return [
         MessageFlashExtension::class => autowire(MessageFlashExtension::class),
         FormTypeExtension::class => DI\get(FormTypeExtension::class),
         UserExtension::class => DI\get(UserExtension::class),
+        ActiveClassLinkExtension::class => autowire(ActiveClassLinkExtension::class),
     ],
 
     FormTypeExtension::class => function(ContainerInterface $c) {

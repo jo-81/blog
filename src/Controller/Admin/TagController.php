@@ -9,6 +9,8 @@ class TagController extends AbstractController
 {
     public function index(): ResponseInterface
     {
-        return $this->render('admin/tag/index.twig');
+        return $this->render('admin/tag/index.twig', [
+            'current_page' => 'tags',
+        ]);
     }
 }

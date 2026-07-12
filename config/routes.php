@@ -12,7 +12,7 @@ return [
         new Route(['GET', 'POST'], "/connexion", [LoginController::class, 'login'], 'app.login'),
         new Route(['GET'], "/logout", [LoginController::class, 'logout'], 'app.logout'),
 
-        new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'app.dashboard'),
-        new Route(['GET'], '/admin/tags', [TagController::class, 'index'], 'app.tag.list'),
+        new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'dashboard'),
+        new Route(['GET'], '/admin/tags', [TagController::class, 'index'], 'admin.tag.list'),
     ],
 ];

@@ -4,6 +4,7 @@ use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
 use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\FormTypeExtension;
 use Framework\Renderer\TwigExtensions\MessageFlashExtension;
+use Framework\Renderer\TwigExtensions\RoutePathExtension;
 use Framework\Renderer\TwigExtensions\UserExtension;
 use Framework\Renderer\TwigExtensions\ViteAssetExtension;
 use Psr\Container\ContainerInterface;
@@ -42,6 +43,7 @@ return [
         FormTypeExtension::class => DI\get(FormTypeExtension::class),
         UserExtension::class => DI\get(UserExtension::class),
         ActiveClassLinkExtension::class => autowire(ActiveClassLinkExtension::class),
+        RoutePathExtension::class => autowire(RoutePathExtension::class),
     ],
 
     FormTypeExtension::class => function(ContainerInterface $c) {

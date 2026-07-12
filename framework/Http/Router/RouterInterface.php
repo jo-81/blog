@@ -77,4 +77,6 @@ interface RouterInterface
      * @throws MethodNotAllowedException Si l'URI correspond mais pas avec la méthode HTTP actuelle (Erreur 405).
      */
     public function match(ServerRequestInterface $request): RouteMatch;
+
+    public function getRoutes(): array;
 }

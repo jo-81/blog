@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Framework\Security\Auth;
 
+use App\Entity\User;
 use Psr\Log\LoggerInterface;
 use Framework\Session\SessionInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -71,5 +72,14 @@ class Authentication
     public function check(): bool
     {
         return $this->session->has(self::USER_SESSION_KEY);
+    }
+
+    public function getUser(): ?User
+    {
+        if (! $this->check()) {
+            return null;
+        }
+
+        return $this->userRepository->findOneBy(['id' => $this->session->get(self::USER_SESSION_KEY)]);
     }
 }

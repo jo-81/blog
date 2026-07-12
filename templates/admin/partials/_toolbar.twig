@@ -1,0 +1,30 @@
+<div class="admin-topbar border-bottom px-4 py-3 align-items-center justify-content-between position-sticky top-0 d-flex">
+    <div class="d-flex align-items-center gap-3">
+        <button id="sidebarToggle" class="btn btn-ghost btn-sm d-lg-none"><i class="bi bi-list"></i></button>
+        <h1 class="fw-bold h5 mb-0">Tableau de bord</h1>
+    </div>
+
+    <div class="d-flex align-items-center gap-3">
+        <div class="search-box d-none d-md-flex align-items-center px-3 py-2 border gap-2">
+            <i class="bi bi-search text-small text-muted"></i><input class="border-0 text-muted" type="text" placeholder="Rechercher…">
+        </div>
+        
+        <div class="dropdown">
+            <button class="btn-dropdown btn btn-ghost border btn-sm d-flex align-items-center gap-2" data-bs-toggle="dropdown" aria-expanded="false">
+                <div class="author-avatar flex-grow-0 rounded-circle fw-bold text-primary text-small d-flex justify-content-center align-items-center">AD</div>
+                <span class="d-none d-md-inline text-md">{{ get_user('username') }}</span>
+                <i class="bi bi-chevron-down" style="font-size:0.65rem;"></i>
+            </button>
+
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item rounded-2" href="#"><i class="bi bi-person me-2"></i>Mon profil</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item rounded-2 text-danger" href="/logout">
+                        <i class="bi bi-box-arrow-right me-2"></i>Déconnexion
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

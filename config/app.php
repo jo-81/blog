@@ -3,6 +3,7 @@
 use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\FormTypeExtension;
 use Framework\Renderer\TwigExtensions\MessageFlashExtension;
+use Framework\Renderer\TwigExtensions\UserExtension;
 use Framework\Renderer\TwigExtensions\ViteAssetExtension;
 use Psr\Container\ContainerInterface;
 use Twig\Environment;
@@ -38,6 +39,7 @@ return [
         CsrfExtension::class => autowire(CsrfExtension::class),
         MessageFlashExtension::class => autowire(MessageFlashExtension::class),
         FormTypeExtension::class => DI\get(FormTypeExtension::class),
+        UserExtension::class => DI\get(UserExtension::class),
     ],
 
     FormTypeExtension::class => function(ContainerInterface $c) {

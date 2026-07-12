@@ -1,5 +1,5 @@
 import '../scss/app.scss';
 
-// import 'bootstrap';
+import 'bootstrap';
 
 console.log('Vite + Bootstrap + Sass fonctionnels !');

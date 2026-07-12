@@ -1,0 +1,52 @@
+.admin-sidebar {
+    width: 240px;
+    background: $surface;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.admin-nav-section {
+    letter-spacing: 0.12em;
+    opacity: 0.6;
+}
+
+.admin-nav-link {
+    gap: 0.65rem;
+    font-weight: 500;
+    transition: all $transition-base;
+
+    &:hover, &.active {
+        background: rgba(56, 189, 248, 0.12);
+        color: $link;
+    }
+}
+
+.admin-main {
+    margin-left: 240px;
+    min-height: 100vh;
+}
+
+.admin-topbar {
+    background: $surface;
+    z-index: 90;
+}
+
+.search-box {
+    background: $elevated;
+    border-radius: 50px;
+
+    input {
+        background: transparent;
+        font-size: $small-md;
+        outline: none;
+        width: 180px;
+    }
+}
+
+.author-avatar {
+    width: 30px;
+    height: 30px;
+    background: linear-gradient(135deg, $link, #818CF8);
+}

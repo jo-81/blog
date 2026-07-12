@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Admin\DashboardController;
+use App\Controller\Admin\TagController;
 use App\Controller\Auth\LoginController;
 use Framework\Http\Router\Route;
 use App\Controller\HomeController;
@@ -12,5 +13,6 @@ return [
         new Route(['GET'], "/logout", [LoginController::class, 'logout'], 'app.logout'),
 
         new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'app.dashboard'),
+        new Route(['GET'], '/admin/tags', [TagController::class, 'index'], 'app.tag.list'),
     ],
 ];

@@ -34,7 +34,7 @@ final class ViteAssetExtension extends AbstractExtension
      */
     public function renderAsset(string $entry): string
     {
-        if ($this->appEnv === 'dev') {
+        if ($this->appEnv !== 'prod') {
             return $this->renderDevAssets($entry);
         }
 

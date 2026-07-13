@@ -3,4 +3,85 @@
 {% block page_title %}Liste des tags{% endblock %}
 
 {% block content %}
+    <div class="row g-4">
+        <div class="col-lg-4">
+            <section class="card mb-4">
+                <div class="card-body">
+                    <h2 class="mb-4 h6">Ajouter un tag</h2>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-lg-8">
+            <section class="card">
+                <div class="card-body">
+                    <h2 class="h6">Tous les tags</h2>
+                
+                    {% if tags is defined and tags is not empty %}
+                        <div class="table-responsive my-4">
+                            <table class="table mb-0">
+                                <thead class="bg-primary opacity-50">
+                                    <tr>
+                                        <th class="text-uppercase text-md" scope="col">Nom</th>
+                                        <th class="text-uppercase text-md" scope="col">Slug</th>
+                                        <th class="text-uppercase text-md" scope="col">Couleur</th>
+                                        <th class="text-uppercase text-md" scope="col">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for tag in tags %}
+                                        <tr>
+                                            <td>{{ tag.name }}</td>
+                                            <td>{{ tag.slug }}</td>
+                                            <td>
+                                                <div class="p-3 w-25 rounded-3" style="background-color: {{ tag.color }}">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="d-flex gap-1">
+                                                    <button class="btn btn-outline-primary btn-sm">
+                                                        <i class="bi bi-pencil"></i>
+                                                    </button>
+                                                    <button class="btn btn-outline-danger btn-sm">
+                                                        <i class="bi bi-trash"></i>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        {% else %} <p class="mb-0">Auncun tag d'ajouté.</p>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endif %}
+                
+                    <div class="d-flex justify-content-end">
+                        <nav>
+                            <ul class="pagination pagination-sm mb-0 gap-1">
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="bi bi-chevron-left"></i>
+                                    </a>
+                                </li>
+                                <li class="page-item active">
+                                    <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">
+                                        <i class="bi bi-chevron-right"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
 {% endblock %}

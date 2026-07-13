@@ -1,13 +1,12 @@
 <?php
 
-namespace Framework\Http\Router;
+declare(strict_types=1);
 
-use Framework\Http\Router\RouterInterface;
+namespace Framework\Http\Router;
 
 class UrlGenerator
 {
-    public function __construct(private RouterInterface $router)
-    {}
+    public function __construct(private RouterInterface $router) {}
 
     public function generate(string $name, array $params = []): string
     {
@@ -22,7 +21,7 @@ class UrlGenerator
         // On remplace les {param} ou {param:\d+} par les valeurs fournies
         foreach ($params as $key => $value) {
             // Cette regex attrape {id} ou {id:\d+}
-            $path = preg_replace('#\{' . $key . '(:.*)?\}#U', (string)$value, $path);
+            $path = preg_replace('#\{' . $key . '(:.*)?\}#U', (string) $value, $path);
         };
 
         return $path;

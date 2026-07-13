@@ -1,5 +1,9 @@
 <?php
 
+use App\Entity\Tag;
+use App\Repository\TagRepository;
+use DI\Container;
+use Framework\Database\EntityManagerInterface;
 use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
 use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\FormTypeExtension;
@@ -62,4 +66,10 @@ return [
             $_ENV['VITE_SERVER_URL'] ?? 'http://localhost:3000'
         );
     },
+
+    TagRepository::class => DI\factory(function(Container $container) {
+        $entityManager = $container->get(EntityManagerInterface::class);
+
+        return $entityManager->getRepository(Tag::class);
+    })
 ];

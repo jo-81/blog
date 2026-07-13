@@ -1,15 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Renderer\TwigExtensions;
 
-use Framework\Http\Router\UrlGenerator;
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
+use Framework\Http\Router\UrlGenerator;
 
 class RoutePathExtension extends AbstractExtension
 {
-    public function __construct(private UrlGenerator $urlGenerator)
-    {}
+    public function __construct(private UrlGenerator $urlGenerator) {}
 
     public function getFunctions(): array
     {

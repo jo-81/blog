@@ -57,3 +57,19 @@ $dropdown-item-padding-x: 0.5rem;
 $dropdown-box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
 $dropdown-link-hover-color: $link;
 $dropdown-link-hover-bg: rgba($link, 0.10);
+
+// TABLE
+$table-bg: $body-color;
+$table-th-font-weight: 900;
+$table-border-width: 0;
+$table-cell-padding-y: 0.5rem;
+$table-cell-padding-x: 2rem;
+
+// PAGINATION
+$pagination-bg: transparent;
+$pagination-color: $text-muted;
+$pagination-hover-bg: $link;
+$pagination-hover-color: $primary;
+$pagination-active-color:           $primary;
+$pagination-active-bg:              $link;
+$pagination-active-border-color:    $link;

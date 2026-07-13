@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Renderer\TwigExtensions;
 
-use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 
 class ActiveClassLinkExtension extends AbstractExtension
 {
@@ -20,6 +22,6 @@ class ActiveClassLinkExtension extends AbstractExtension
             return '';
         }
 
-        return $label == $activeLink ? 'active': '';
+        return $label == $activeLink ? 'active' : '';
     }
 }

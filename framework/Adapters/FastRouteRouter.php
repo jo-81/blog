@@ -68,7 +68,7 @@ class FastRouteRouter implements RouterInterface
             $route, // Injection de l'objet Route complet en guise de handler personnalisé
         );
 
-        if (method_exists($route, 'getName') && $route->getName()) {
+        if (!is_null($route->getName())) {
             $this->routes[$route->getName()] = $route;
         }
 

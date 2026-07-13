@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Tests;
 
 use Nyholm\Psr7\ServerRequest;
-use PHPUnit\Framework\TestCase as BaseTestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
 abstract class AbstractTestCase extends BaseTestCase
 {
@@ -54,7 +54,7 @@ abstract class AbstractTestCase extends BaseTestCase
             $_SESSION = [];
             session_destroy();
         }
-        
+
         // On s'assure que le superglobal est bien vide pour le prochain cycle
         $_SESSION = [];
 

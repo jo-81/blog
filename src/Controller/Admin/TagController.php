@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Tag;
+use App\Service\TagService;
 use App\Form\Tag\TagFormType;
 use App\Repository\TagRepository;
 use Framework\Form\FormInterface;
@@ -12,11 +13,12 @@ use Framework\Http\AbstractController;
 use Psr\Http\Message\ResponseInterface;
 use Framework\Adapters\CyclePaginatorItem;
 use Framework\Database\Paginator\Paginator;
+use Cycle\Database\Exception\DatabaseException;
 use Spiral\Pagination\Paginator as CyclePaginator;
 
 class TagController extends AbstractController
 {
-    public function __construct(private TagRepository $tagRepository) {}
+    public function __construct(private TagRepository $tagRepository, private TagService $tagService) {}
 
     public function index(): ResponseInterface
     {
@@ -41,9 +43,28 @@ class TagController extends AbstractController
         ]);
     }
 
-    private function getTagFormType(): FormInterface
+    public function create()
     {
-        $form = $this->createForm(TagFormType::class);
+        $form = $this->getTagFormType(new Tag());
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $data = $form->getData();
+                $this->tagService->create($data);
+                $this->flash->add('success', 'Le tag a bien été ajouté.');
+
+            } catch (DatabaseException $e) {
+                $this->flash->add('danger', "Le tag n'a pas pu être ajouté.");
+            } finally {
+                return $this->redirect('/admin/tags');
+            }
+        }
+
+        return $this->redirect('/admin/tags');
+    }
+
+    private function getTagFormType(?Tag $tag = null): FormInterface
+    {
+        $form = $this->createForm(TagFormType::class, $tag);
         $form->handleRequest($this->request);
 
         return $form;

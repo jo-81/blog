@@ -16,5 +16,7 @@ interface FormInterface
 
     public function getData(): mixed;
 
+    public function getErrors(): mixed;
+
     public function createView(): array;
 }

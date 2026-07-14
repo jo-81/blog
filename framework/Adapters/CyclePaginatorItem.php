@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Adapters;
 
-use Framework\Database\Paginator\PaginatorItemInterface;
 use Spiral\Pagination\Paginator;
+use Framework\Database\Paginator\PaginatorItemInterface;
 
 class CyclePaginatorItem implements PaginatorItemInterface
 {
-    public function __construct(private Paginator $paginator)
-    {}
+    public function __construct(private Paginator $paginator) {}
 
     public function getCountPages(): int
     {

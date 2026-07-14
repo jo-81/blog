@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Tag;
+use App\Form\Tag\TagFormType;
 use App\Repository\TagRepository;
-use Framework\Adapters\CyclePaginatorItem;
-use Framework\Database\Paginator\Paginator;
+use Framework\Form\FormInterface;
 use Framework\Http\AbstractController;
 use Psr\Http\Message\ResponseInterface;
+use Framework\Adapters\CyclePaginatorItem;
+use Framework\Database\Paginator\Paginator;
 use Spiral\Pagination\Paginator as CyclePaginator;
 
 class TagController extends AbstractController
@@ -19,7 +21,7 @@ class TagController extends AbstractController
     public function index(): ResponseInterface
     {
         $queryParams = $this->request->getQueryParams();
-        $page = isset($queryParams['page']) ? (int)$queryParams['page'] : 1;
+        $page = isset($queryParams['page']) ? (int) $queryParams['page'] : 1;
 
         $select = $this->tagRepository->select()->orderBy('id', 'DESC');
 
@@ -28,13 +30,22 @@ class TagController extends AbstractController
 
         $tags = $select->fetchAll();
 
-        $adapter = new CyclePaginatorItem($paginator);
+        $adapter = new CyclePaginatorItem($paginator); /** @phpstan-ignore-line */
         $pagination = new Paginator($adapter);
 
         return $this->render('admin/tag/index.twig', [
             'current_page' => 'tags',
             'tags' => $tags,
             'pagination' => $pagination,
+            'form' => $this->getTagFormType()->createView(),
         ]);
+    }
+
+    private function getTagFormType(): FormInterface
+    {
+        $form = $this->createForm(TagFormType::class);
+        $form->handleRequest($this->request);
+
+        return $form;
     }
 }

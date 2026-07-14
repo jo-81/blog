@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Framework\Renderer\TwigExtensions;
 
+use Twig\Environment;
+use Twig\TwigFunction;
+use Twig\Extension\AbstractExtension;
 use Framework\Database\Paginator\Paginator;
 use Psr\Http\Message\ServerRequestInterface;
-use Twig\Environment;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFunction;
 
 class PaginationExtension extends AbstractExtension
 {
@@ -17,10 +19,10 @@ class PaginationExtension extends AbstractExtension
         return [
             new TwigFunction('render_pagination', [$this, 'renderPagination'], [
                 'needs_environment' => true,
-                'is_safe' => ['html']
+                'is_safe' => ['html'],
             ]),
             new TwigFunction('display_pagination_info', [$this, 'renderDisplayInfo'], [
-                'is_safe' => ['html']
+                'is_safe' => ['html'],
             ]),
         ];
     }
@@ -37,7 +39,7 @@ class PaginationExtension extends AbstractExtension
         return $twig->render($template, [
             'paginator'    => $paginator,
             'current_path' => $currentPath,
-            'query_params' => $queryParams
+            'query_params' => $queryParams,
         ]);
     }
 
@@ -47,9 +49,9 @@ class PaginationExtension extends AbstractExtension
 
         $currentPage = $paginator->getCurrentPage();
 
-        $start = 1 * (($currentPage - 1 ) * $paginator->getItemsPerPage() + 1);
+        $start = 1 * (($currentPage - 1) * $paginator->getItemsPerPage() + 1);
 
-        $end = $currentPage == $paginator->getTotalPages() 
+        $end = $currentPage == $paginator->getTotalPages()
             ? $paginator->getTotalItems()
             : $paginator->getItemsPerPage() * $currentPage
         ;

@@ -4,7 +4,7 @@
         id="{{ name }}"
         name="{{ name }}"
         {% if value is defined and error is not null %}value="{{ value }}"{% endif %}
-        class="form-control {% if error is defined and error is not null %}is-invalid{% endif %}"
+        class="form-control form-control-color {% if error is defined and error is not null %}is-invalid{% endif %}"
         {% if options.required %}required{% endif %}
         {% if options.placeholder %}placeholder="{{ options.placeholder }}"{% endif %}
         {% if options.autocomplete %}autocomplete="{{ options.autocomplete }}"{% endif %}
@@ -13,4 +13,10 @@
 
 {% macro label(name, label) %}
     <label for="{{ name }}" class="form-label text-uppercase" for="{{ name }}">{{ label }}</label>
+{% endmacro %}
+
+{% macro help(help) %}
+    {% if help is not null %}
+        <div class="text-small text-muted mt-1">{{ help }}</div>
+    {% endif %}
 {% endmacro %}

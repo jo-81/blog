@@ -1,8 +1,8 @@
 <?php
 
-namespace Framework\Database\Paginator;
+declare(strict_types=1);
 
-use Framework\Database\Paginator\PaginatorItemInterface;
+namespace Framework\Database\Paginator;
 
 class Paginator
 {
@@ -14,7 +14,8 @@ class Paginator
 
     private int $currentPage;
 
-    public function __construct(private PaginatorItemInterface $cyclePaginator) {
+    public function __construct(private PaginatorItemInterface $cyclePaginator)
+    {
         $this->totalPages = (int) $this->cyclePaginator->getCountPages();
         $this->totalItems = (int) $this->cyclePaginator->getCountItems();
         $this->itemsPerPage = (int) $this->cyclePaginator->getItemsPerPage();
@@ -52,7 +53,7 @@ class Paginator
     }
 
     /**
-     * Optionnel : Génère une liste de numéros de page intelligente 
+     * Optionnel : Génère une liste de numéros de page intelligente
      * (ex: [1, 2, 3, '...', 10]) pour éviter d'afficher 50 boutons.
      */
     public function getPageRange(int $onEachSide = 2): array

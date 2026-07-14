@@ -2,6 +2,7 @@
 
 use App\Entity\Tag;
 use App\Repository\TagRepository;
+use App\Service\TagService;
 use DI\Container;
 use Framework\Database\EntityManagerInterface;
 use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
@@ -73,5 +74,7 @@ return [
         $entityManager = $container->get(EntityManagerInterface::class);
 
         return $entityManager->getRepository(Tag::class);
-    })
+    }),
+
+    TagService::class => DI\autowire(TagService::class),
 ];

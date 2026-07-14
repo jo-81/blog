@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Framework\Form;
 
+use Framework\Session\SessionInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Framework\Validation\Constraint\ConstraintInterface;
 
@@ -21,6 +22,7 @@ class Form implements FormInterface
         private array $configuredFields,
         private mixed $data = null,
         private array $options = [],
+        private ?SessionInterface $session = null, // 🚀 Injection optionnelle de la session
     ) {
         $this->fields = $configuredFields;
         if (null === $this->data) {
@@ -32,7 +34,35 @@ class Form implements FormInterface
             'action' => '',
         ], $options['attr'] ?? []);
 
+        // 1. Récupération préalable d'éventuelles erreurs et données flashées en session
+        $this->loadFlashData();
+
+        // 2. Injection des données (entité ou tableau)
         $this->injectInitialData();
+    }
+
+    /**
+     * Charge les erreurs et les anciennes données stockées en session (Flash)
+     */
+    private function loadFlashData(): void
+    {
+        if (null === $this->session) {
+            return;
+        }
+
+        // On récupère les données
+        $flashErrors = $this->session->get('form_errors', []);
+        $flashData = $this->session->get('form_old_data', []);
+
+        if (!empty($flashErrors)) {
+            $this->errors = $flashErrors;
+            $this->session->remove('form_errors');
+        }
+
+        if (!empty($flashData)) {
+            $this->data = $flashData;
+            $this->session->remove('form_old_data');
+        }
     }
 
     /**
@@ -48,7 +78,6 @@ class Form implements FormInterface
             if (is_array($this->data) && isset($this->data[$name])) {
                 $config['options']['value'] = $this->data[$name];
             } elseif (is_object($this->data)) {
-                // On cherche un getter (ex: getEmail())
                 $getter = 'get' . ucfirst($name);
                 if (method_exists($this->data, $getter)) {
                     $config['options']['value'] = $this->data->$getter();
@@ -62,15 +91,12 @@ class Form implements FormInterface
      */
     public function handleRequest(ServerRequestInterface $request): self
     {
-        // 1. On récupère les données du corps de la requête (l'équivalent de $_POST)
-        // getParsedBody() renvoie un array ou un objet (généralement un array pour les formulaires HTML)
         $requestData = $request->getParsedBody();
 
         if (!is_array($requestData)) {
             return $this;
         }
 
-        // 2. On vérifie si un de nos champs est présent pour marquer le formulaire comme soumis
         foreach ($this->fields as $name => $config) {
             if (array_key_exists($name, $requestData)) {
                 $this->isSubmitted = true;
@@ -78,20 +104,42 @@ class Form implements FormInterface
             }
         }
 
-        // 3. Si soumis, on valide et on hydrate
         if ($this->isSubmitted) {
             foreach ($this->fields as $name => &$config) {
                 $value = $requestData[$name] ?? null;
                 $config['options']['value'] = $value;
 
-                // Hydratation de ton entité
                 $this->hydrateData($name, $value);
-
                 $this->validateField($name, $value, $config['options']['constraints'] ?? []);
+            }
+
+            // 🚀 SAUVEGARDE EN FLASH SI ÉCHEC DE VALIDATION
+            // Si le formulaire est soumis mais invalide, on sauvegarde pour la prochaine redirection.
+            if (!$this->isValid()) {
+                $this->saveFlashData();
             }
         }
 
         return $this;
+    }
+
+    /**
+     * Enregistre les erreurs et les données soumises en session Flash
+     */
+    private function saveFlashData(): void
+    {
+        if (null === $this->session) {
+            return;
+        }
+
+        $this->session->set('form_errors', $this->errors);
+
+        // On sauvegarde l'état actuel sous forme de tableau
+        $oldData = [];
+        foreach ($this->fields as $name => $config) {
+            $oldData[$name] = $config['options']['value'] ?? null;
+        }
+        $this->session->set('form_old_data', $oldData);
     }
 
     /**

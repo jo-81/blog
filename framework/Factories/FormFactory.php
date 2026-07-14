@@ -8,6 +8,7 @@ use Framework\Form\Form;
 use Framework\Form\FormBuilder;
 use Framework\Form\FormInterface;
 use Psr\Container\ContainerInterface;
+use Framework\Session\SessionInterface;
 use Framework\Form\FormFactoryInterface;
 
 class FormFactory implements FormFactoryInterface
@@ -17,6 +18,7 @@ class FormFactory implements FormFactoryInterface
     public function create(string $formType, mixed $data = null, array $options = []): FormInterface
     {
         $typeInstance = $this->container->get($formType);
+        $session = $this->container->get(SessionInterface::class);
 
         // 1. On crée un builder vierge
         $builder = new FormBuilder();
@@ -35,6 +37,6 @@ class FormFactory implements FormFactoryInterface
         }
 
         // 4. On passe les champs résolus à l'objet Form
-        return new Form($resolvedFields, $data, $options);
+        return new Form($resolvedFields, $data, $options, $session);
     }
 }

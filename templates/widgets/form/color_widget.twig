@@ -6,15 +6,15 @@
 
     <div class="input-group">
         {% if options.icon %}
-            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+            <span class="input-group-text"><i class="bi bi-palette"></i></span>
         {% endif %}
         
-        {{ forms.input('email', 'email', options, error, value) }}
-
-        {{ form.help(options.help) }}
+        {{ forms.input(name, 'color', options, error, value) }}
 
         {% if error %}
             <div class="invalid-feedback">{{ error }}</div>
         {% endif %}
     </div>
+
+    {{ forms.help(options.help) }}
 </div>

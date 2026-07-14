@@ -1,0 +1,22 @@
+{% if messages = get_flashes(type) %}
+    {% for key, message in messages %}
+        {% if message is iterable %}
+            {% for m in message %}
+                <div class="alert alert-{{ key }} mb-3 text-small {% if dismissible %}alert-dismissible fade show{% endif %}">
+                    <i class="bi bi-check me-2"></i> {{ m }}
+                    {% if dismissible %}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-{{ type }} mb-3 text-small {% if dismissible %}alert-dismissible fade show{% endif %}">
+                <i class="bi bi-check me-2"></i> {{ message }}
+                {% if dismissible %}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                {% endif %}
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+

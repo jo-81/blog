@@ -8,6 +8,16 @@
             <section class="card mb-4">
                 <div class="card-body">
                     <h2 class="mb-4 h6">Ajouter un tag</h2>
+
+                    <form method="POST" action="{{ path('admin.tag.create') }}" class="needs-validation" novalidate>
+                        {{ form_row(form, 'name') }}
+
+                        {{ form_row(form, 'color') }}
+
+                        {{ csrf_token() }}
+
+                        <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus"></i> Ajouter</button>
+                    </form>
                 </div>
             </section>
         </div>
@@ -16,6 +26,8 @@
             <section class="card">
                 <div class="card-body">
                     <h2 class="h6">Tous les tags ( {{ pagination.totalItems }} )</h2>
+
+                    {% include "widgets/message/_flash.twig" with {'dismissible': true} %}
                 
                     {% if tags is defined and tags is not empty %}
                         <div class="table-responsive my-4">

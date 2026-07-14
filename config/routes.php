@@ -14,5 +14,6 @@ return [
 
         new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'dashboard'),
         new Route(['GET'], '/admin/tags', [TagController::class, 'index'], 'admin.tag.list'),
+        new Route(['POST'], '/admin/tags/create', [TagController::class, 'create'], 'admin.tag.create'),
     ],
 ];

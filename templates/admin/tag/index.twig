@@ -15,13 +15,14 @@
         <div class="col-lg-8">
             <section class="card">
                 <div class="card-body">
-                    <h2 class="h6">Tous les tags</h2>
+                    <h2 class="h6">Tous les tags ( {{ pagination.totalItems }} )</h2>
                 
                     {% if tags is defined and tags is not empty %}
                         <div class="table-responsive my-4">
                             <table class="table mb-0">
                                 <thead class="bg-primary opacity-50">
                                     <tr>
+                                        <th class="text-uppercase text-md" scope="col">#</th>
                                         <th class="text-uppercase text-md" scope="col">Nom</th>
                                         <th class="text-uppercase text-md" scope="col">Slug</th>
                                         <th class="text-uppercase text-md" scope="col">Couleur</th>
@@ -31,6 +32,7 @@
                                 <tbody>
                                     {% for tag in tags %}
                                         <tr>
+                                            <td>{{ loop.index + (pagination.currentPage - 1) * pagination.itemsPerPage }}</td>
                                             <td>{{ tag.name }}</td>
                                             <td>{{ tag.slug }}</td>
                                             <td>
@@ -55,30 +57,11 @@
                         </div>
                     {% endif %}
                 
-                    <div class="d-flex justify-content-end">
-                        <nav>
-                            <ul class="pagination pagination-sm mb-0 gap-1">
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="bi bi-chevron-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="#">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="#">
-                                        <i class="bi bi-chevron-right"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-md text-muted">
+                            {{ display_pagination_info(pagination) }}
+                        </span>
+                        {{ render_pagination(pagination) }}
                     </div>
                 </div>
             </section>

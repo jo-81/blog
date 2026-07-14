@@ -1,0 +1,35 @@
+<nav aria-label="Navigation des pages">
+    <ul class="pagination pagination-sm gap-1 mb-0">
+        
+        {% if paginator.hasPreviousPage %}
+        {# Bouton Précédent #}
+        <li class="page-item">
+            <a class="page-item" href="{{ current_path }}?{{ query_params|merge({'page': paginator.getPreviousPage})|url_encode }}">
+                <span class="page-link"><i class="bi bi-chevron-left"></i></span>
+            </a>
+        </li>
+        {% endif %}
+
+        {# Liste des numéros de pages #}
+        {% for page in paginator.getPageRange %}
+            {% if page == '...' %}
+                <li class="page-item"><span class="page-link">...</span></li>
+            {% else %}
+                <li class="page-item {{ page == paginator.getCurrentPage ? 'active' }}">
+                    <a class="page-link" href="{{ current_path }}?{{ query_params|merge({'page': page})|url_encode }}">
+                        {{ page }}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if paginator.hasNextPage %}
+        {# Bouton Suivant #}
+        <li class="page-item">
+            <a class="page-item" href="{{ current_path }}?{{ query_params|merge({'page': paginator.getNextPage})|url_encode }}">
+                <span class="page-link"><i class="bi bi-chevron-right"></i></span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

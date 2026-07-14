@@ -31,6 +31,8 @@ class FastRouteRouter implements RouterInterface
      */
     private RouteCollector $routeCollector;
 
+    private array $routes = [];
+
     /**
      * Constructeur du routeur.
      * Initialise les composants internes nécessaires à FastRoute.
@@ -65,6 +67,10 @@ class FastRouteRouter implements RouterInterface
             $route->getPath(),
             $route, // Injection de l'objet Route complet en guise de handler personnalisé
         );
+
+        if (!is_null($route->getName())) {
+            $this->routes[$route->getName()] = $route;
+        }
 
         return $route;
     }
@@ -136,5 +142,10 @@ class FastRouteRouter implements RouterInterface
         }
 
         throw new RuntimeException('Erreur interne de routage.');
+    }
+
+    public function getRoutes(): array
+    {
+        return $this->routes;
     }
 }

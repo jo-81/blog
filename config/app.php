@@ -1,8 +1,15 @@
 <?php
 
+use App\Entity\Tag;
+use App\Repository\TagRepository;
+use DI\Container;
+use Framework\Database\EntityManagerInterface;
+use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
 use Framework\Renderer\TwigExtensions\CsrfExtension;
 use Framework\Renderer\TwigExtensions\FormTypeExtension;
 use Framework\Renderer\TwigExtensions\MessageFlashExtension;
+use Framework\Renderer\TwigExtensions\PaginationExtension;
+use Framework\Renderer\TwigExtensions\RoutePathExtension;
 use Framework\Renderer\TwigExtensions\UserExtension;
 use Framework\Renderer\TwigExtensions\ViteAssetExtension;
 use Psr\Container\ContainerInterface;
@@ -40,6 +47,9 @@ return [
         MessageFlashExtension::class => autowire(MessageFlashExtension::class),
         FormTypeExtension::class => DI\get(FormTypeExtension::class),
         UserExtension::class => DI\get(UserExtension::class),
+        ActiveClassLinkExtension::class => autowire(ActiveClassLinkExtension::class),
+        RoutePathExtension::class => autowire(RoutePathExtension::class),
+        PaginationExtension::class => autowire(PaginationExtension::class),
     ],
 
     FormTypeExtension::class => function(ContainerInterface $c) {
@@ -58,4 +68,10 @@ return [
             $_ENV['VITE_SERVER_URL'] ?? 'http://localhost:3000'
         );
     },
+
+    TagRepository::class => DI\factory(function(Container $container) {
+        $entityManager = $container->get(EntityManagerInterface::class);
+
+        return $entityManager->getRepository(Tag::class);
+    })
 ];

@@ -15,7 +15,7 @@
     {% include "admin/partials/_navbar.twig" %}
 
     <main class="admin-main">
-        {% include "admin/partials/_toolbar.twig" %}
+        {% include "admin/partials/_toolbar.twig" with {'page_title': block('page_title')} %}
         <section class="admin-content px-4 py-5">
             {% block content %}{% endblock %}
         </section>

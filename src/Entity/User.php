@@ -13,9 +13,6 @@ use Cycle\Annotated\Annotation\Entity;
     role: 'user',
     table: 'user',
     repository: UserRepository::class,
-    // typecast: [
-    //     'role' => UserRole::class,
-    // ],
 )]
 class User
 {

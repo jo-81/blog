@@ -10,12 +10,18 @@
         
     <nav class="admin-nav p-4">
         <div class="admin-nav-section text-uppercase text-muted py-2 text-small">Principal</div>
-        <a href="dashboard.html" class="admin-nav-link active d-flex align-items-center text-md rounded px-3 py-2 mb-2">
+        <a href="{{ path('dashboard') }}" class="admin-nav-link {{ active_class('dashboard', current_page) }} d-flex align-items-center text-md rounded px-3 py-2 mb-2">
             <i class="bi bi-grid-1x2"></i> Tableau de bord
         </a>
 
+        <div class="admin-nav-section text-uppercase text-muted py-2 text-small">Contenue</div>
+        <a  href="{{ path('admin.tag.list') }}" 
+            class="admin-nav-link {{ active_class('tags', current_page) }} d-flex align-items-center text-md rounded px-3 py-2 mb-2">
+            <i class="bi bi-tags"></i> Tags
+        </a>
+
         <div class="admin-nav-section text-uppercase text-muted py-2 text-small">Compte</div>
-        <a href="/logout" class="admin-nav-link d-flex align-items-center text-md rounded px-3 py-2 mb-2 text-danger">
+        <a href="{{ path('app.logout') }}" class="admin-nav-link d-flex align-items-center text-md rounded px-3 py-2 mb-2 text-danger">
             <i class="bi bi-box-arrow-right"></i> Déconnexion
         </a>
     </nav>

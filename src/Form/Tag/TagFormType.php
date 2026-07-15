@@ -17,6 +17,11 @@ class TagFormType
 
     public function buildForm(FormBuilderInterface $builder): void
     {
+        $tag = $builder->getData();
+
+        // On récupère l'ID si c'est un objet Tag existant
+        $tagId = (is_object($tag) && method_exists($tag, 'getId')) ? $tag->getId() : null;
+
         $builder
             ->add('name', TextType::class, [
                 'required' => true,
@@ -24,13 +29,13 @@ class TagFormType
                 'placeholder' => 'ex : async',
                 'constraints' => [
                     new NotBlank(),
-                    new Unique($this->tagRepository, 'name'),
+                    new Unique($this->tagRepository, 'name', $tagId),
                 ],
             ])
             ->add('color', ColorType::class, [
                 'required' => true,
                 'constraints' => [
-                    new Unique($this->tagRepository, 'color'),
+                    new Unique($this->tagRepository, 'color', $tagId),
                 ],
                 'label' => 'Couleur',
             ])

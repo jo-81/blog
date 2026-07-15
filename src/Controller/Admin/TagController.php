@@ -43,23 +43,65 @@ class TagController extends AbstractController
         ]);
     }
 
-    public function create()
+    public function persist(?int $id = null): ResponseInterface
     {
-        $form = $this->getTagFormType(new Tag());
+        $tag = new Tag();
+        $action = 'ajouté';
+        if (!is_null($id)) {
+            $tag = $this->tagRepository->findByPK($id);
+            $action = 'modifier';
+        }
+
+        if (is_null($tag)) {
+            $this->flash->add('danger', sprintf("Le tag %s n'existe pas", $id));
+
+            return $this->redirect('/admin/tags');
+        }
+
+        $form = $this->getTagFormType($tag);
         if ($form->isSubmitted() && $form->isValid()) {
             try {
                 $data = $form->getData();
                 $this->tagService->create($data);
-                $this->flash->add('success', 'Le tag a bien été ajouté.');
+                $this->flash->add('success', sprintf('Le tag a bien été %s', $action));
 
             } catch (DatabaseException $e) {
-                $this->flash->add('danger', "Le tag n'a pas pu être ajouté.");
+                $this->flash->add('danger', sprintf("Le tag n'a pas pu être %s.", $action));
             } finally {
                 return $this->redirect('/admin/tags');
             }
         }
 
         return $this->redirect('/admin/tags');
+    }
+
+    public function edit(int $id): ResponseInterface
+    {
+        $tag = $this->tagRepository->findByPK($id);
+        if (is_null($tag)) {
+            $this->createNotFoundException(sprintf("Le tag %s n'existe pas", $id));
+        }
+
+        $queryParams = $this->request->getQueryParams();
+        $page = isset($queryParams['page']) ? (int) $queryParams['page'] : 1;
+
+        $select = $this->tagRepository->select()->orderBy('id', 'DESC');
+
+        $paginator = new CyclePaginator(Tag::PAGINATION, $select->count());
+        $paginator = $paginator->withPage($page)->paginate($select);
+
+        $tags = $select->fetchAll();
+
+        $adapter = new CyclePaginatorItem($paginator); /** @phpstan-ignore-line */
+        $pagination = new Paginator($adapter);
+
+        return $this->render('admin/tag/index.twig', [
+            'current_page' => 'tags',
+            'tags' => $tags,
+            'pagination' => $pagination,
+            'form' => $this->getTagFormType($tag)->createView(),
+            'tag' => $tag,
+        ]);
     }
 
     private function getTagFormType(?Tag $tag = null): FormInterface

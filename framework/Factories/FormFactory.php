@@ -21,7 +21,7 @@ class FormFactory implements FormFactoryInterface
         $session = $this->container->get(SessionInterface::class);
 
         // 1. On crée un builder vierge
-        $builder = new FormBuilder();
+        $builder = new FormBuilder($data, $options);
 
         // 2. Le FormType remplit le builder avec ses chaînes de caractères
         $typeInstance->buildForm($builder);

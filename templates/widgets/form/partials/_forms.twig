@@ -3,7 +3,7 @@
         type="{{ type }}" 
         id="{{ name }}"
         name="{{ name }}"
-        {% if value is defined and error is not null %}value="{{ value }}"{% endif %}
+        {% if value is defined and value is not null %}value="{{ value }}"{% endif %}
         class="form-control form-control-color {% if error is defined and error is not null %}is-invalid{% endif %}"
         {% if options.required %}required{% endif %}
         {% if options.placeholder %}placeholder="{{ options.placeholder }}"{% endif %}

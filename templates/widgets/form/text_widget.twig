@@ -9,7 +9,7 @@
             <span class="input-group-text"><i class="bi bi-type"></i></span>
         {% endif %}
         
-        {{ forms.input(name, 'text', options, error, value) }}
+        {{ forms.input(name, 'text', options, error, options.value) }}
 
         {% if error %}
             <div class="invalid-feedback">{{ error }}</div>

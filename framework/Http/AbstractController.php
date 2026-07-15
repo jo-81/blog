@@ -12,6 +12,7 @@ use Framework\Renderer\RendererInterface;
 use Framework\Session\MessageFlashInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Framework\Http\Exception\NotFoundHttpException;
 
 /**
  * Contrôleur de base offrant des fonctionnalités communes à tous les contrôleurs.
@@ -64,5 +65,10 @@ abstract class AbstractController
         $form = $this->formFactory->create($formType, $data, $options);
 
         return $form->handleRequest($this->request);
+    }
+
+    protected function createNotFoundException(string $message = 'Page non trouvée.')
+    {
+        throw new NotFoundHttpException($message);
     }
 }

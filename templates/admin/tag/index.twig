@@ -3,20 +3,49 @@
 {% block page_title %}Liste des tags{% endblock %}
 
 {% block content %}
+
+    {% if tag is defined and tag is not null %}
+        {% set form_title = "Modifier le tag" %}
+        {% set action = "edit" %}
+
+    {% else %}
+        {% set form_title = "Ajouter un tag" %}
+        {% set action = "add" %}
+    {% endif %}
+
     <div class="row g-4">
         <div class="col-lg-4">
             <section class="card mb-4">
                 <div class="card-body">
-                    <h2 class="mb-4 h6">Ajouter un tag</h2>
+                    <h2 class="mb-4 h6">{{ form_title }}</h2>
 
-                    <form method="POST" action="{{ path('admin.tag.create') }}" class="needs-validation" novalidate>
+                    <form 
+                        method="POST"
+
+                        {% if action == 'edit' %}
+                            action="{{ path('admin.tag.create', {id: tag.id}) }}"
+                        {% else %}
+                            action="{{ path('admin.tag.create') }}"
+                        {% endif %}
+                        
+                        class="needs-validation"
+                    >
                         {{ form_row(form, 'name') }}
 
                         {{ form_row(form, 'color') }}
 
                         {{ csrf_token() }}
 
-                        <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus"></i> Ajouter</button>
+                        {% if action == 'add' %}
+                            <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus me-1"></i> Ajouter</button>
+                        {% else %}
+                            <div class="d-flex gap-2">
+                                <button class="col-8 btn btn-link" type="submit">
+                                    <i class="bi bi-floppy me-1"></i> Enregistrer
+                                </button>
+                                <a href="{{ path('admin.tag.list') }}" class="btn border col-4">Annuler</a>
+                            </div>
+                        {% endif %}
                     </form>
                 </div>
             </section>
@@ -53,9 +82,9 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex gap-1">
-                                                    <button class="btn btn-outline-primary btn-sm">
+                                                    <a href="{{ path('admin.tag.edit', {id: tag.id}) }}" class="btn btn-outline-primary btn-sm">
                                                         <i class="bi bi-pencil"></i>
-                                                    </button>
+                                                    </a>
                                                     <button class="btn btn-outline-danger btn-sm">
                                                         <i class="bi bi-trash"></i>
                                                     </button>

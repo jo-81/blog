@@ -18,7 +18,7 @@ class Tag
     public const PAGINATION = 6;
 
     #[Column(type: 'primary')]
-    private int $id;
+    private ?int $id = null; /** @phpstan-ignore-line */
 
     #[Column(type: 'string(100)', unique: true)]
     private ?string $name = null;
@@ -26,7 +26,7 @@ class Tag
     #[Column(type: 'string(255)', unique: true)]
     private ?string $slug = null;
 
-    #[Column(type: 'string(255)', unique: true)]
+    #[Column(type: 'string(55)', unique: true)]
     private ?string $color = null;
 
     public function getId(): ?int

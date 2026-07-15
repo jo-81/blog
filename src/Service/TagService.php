@@ -14,9 +14,7 @@ class TagService
 
     public function create(Tag $tag): void
     {
-        if (is_null($tag->getSlug())) {
-            $tag->setSlug(Slugger::slugify($tag->getName()));
-        }
+        $tag->setSlug(Slugger::slugify($tag->getName()));
 
         $this->em->persist($tag);
         $this->em->flush();

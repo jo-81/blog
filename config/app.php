@@ -1,6 +1,8 @@
 <?php
 
+use App\Entity\Category;
 use App\Entity\Tag;
+use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
 use App\Service\TagService;
 use DI\Container;
@@ -74,6 +76,12 @@ return [
         $entityManager = $container->get(EntityManagerInterface::class);
 
         return $entityManager->getRepository(Tag::class);
+    }),
+
+    CategoryRepository::class => DI\factory(function(Container $container) {
+        $entityManager = $container->get(EntityManagerInterface::class);
+
+        return $entityManager->getRepository(Category::class);
     }),
 
     TagService::class => DI\autowire(TagService::class),

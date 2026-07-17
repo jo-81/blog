@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-use App\Repository\TagRepository;
+use App\Repository\CategoryRepository;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 #[Entity(
-    role: 'tag',
-    table: 'tag',
-    repository: TagRepository::class,
+    role: 'category',
+    table: 'category',
+    repository: CategoryRepository::class,
 )]
-class Tag
+class Category
 {
     public const PAGINATION = 6;
 
@@ -26,8 +26,8 @@ class Tag
     #[Column(type: 'string(255)', unique: true)]
     private ?string $slug = null;
 
-    #[Column(type: 'string(55)', unique: true)]
-    private ?string $color = null;
+    #[Column(type: 'string(255)', nullable: true)]
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -58,14 +58,14 @@ class Tag
         return $this;
     }
 
-    public function getColor(): ?string
+    public function getDescription(): ?string
     {
-        return $this->color;
+        return $this->description;
     }
 
-    public function setColor(?string $color = null): self
+    public function setDescription(?string $description): self
     {
-        $this->color = $color;
+        $this->description = $description;
 
         return $this;
     }

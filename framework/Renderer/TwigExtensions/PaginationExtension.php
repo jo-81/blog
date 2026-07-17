@@ -43,10 +43,8 @@ class PaginationExtension extends AbstractExtension
         ]);
     }
 
-    public function renderDisplayInfo(Paginator $paginator): string
+    public function renderDisplayInfo(Paginator $paginator, string $element): string
     {
-        // dump($paginator);
-
         $currentPage = $paginator->getCurrentPage();
 
         $start = 1 * (($currentPage - 1) * $paginator->getItemsPerPage() + 1);
@@ -56,6 +54,6 @@ class PaginationExtension extends AbstractExtension
             : $paginator->getItemsPerPage() * $currentPage
         ;
 
-        return sprintf('Affichage de %d–%d sur %s tags', $start, $end, $paginator->getTotalItems());
+        return sprintf('Affichage de %d–%d sur %s %s', $start, $end, $paginator->getTotalItems(), $element);
     }
 }

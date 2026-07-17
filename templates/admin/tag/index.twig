@@ -85,7 +85,11 @@
                                                     <a href="{{ path('admin.tag.edit', {id: tag.id}) }}" class="btn btn-outline-primary btn-sm">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
-                                                    <button class="btn btn-outline-danger btn-sm">
+                                                    <button
+                                                        data-bs-toggle="modal" 
+                                                        data-bs-target="#remove_modal" 
+                                                        data-path="{{ path('admin.tag.remove', {id: tag.id}) }}"
+                                                        class="btn btn-outline-danger btn-sm">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
                                                 </div>
@@ -108,4 +112,6 @@
             </section>
         </div>
     </div>
+
+    {% include "admin/partials/_delete_modal.twig" %}
 {% endblock %}

@@ -19,4 +19,10 @@ class TagService
         $this->em->persist($tag);
         $this->em->flush();
     }
+
+    public function remove(Tag $tag): void
+    {
+        $this->em->remove($tag);
+        $this->em->flush();
+    }
 }

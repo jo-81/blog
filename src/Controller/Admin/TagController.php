@@ -104,6 +104,25 @@ class TagController extends AbstractController
         ]);
     }
 
+    public function remove(int $id): ResponseInterface
+    {
+        $tag = $this->tagRepository->findByPK($id);
+        if (is_null($tag)) {
+            $this->createNotFoundException(sprintf("Le tag %s n'existe pas.", $id));
+        }
+
+        try {
+            $this->tagService->remove($tag);
+            $this->flash->add('success', 'Le tag a bien été supprimé.');
+
+        } catch (DatabaseException $e) {
+            $this->flash->add('danger', "Le tag n'a pas pu être supprimé.");
+
+        } finally {
+            return $this->redirect('/admin/tags');
+        }
+    }
+
     private function getTagFormType(?Tag $tag = null): FormInterface
     {
         $form = $this->createForm(TagFormType::class, $tag);

@@ -75,3 +75,12 @@ $pagination-active-bg:              $link;
 $pagination-active-border-color:    $link;
 $pagination-focus-bg: $link;
 $pagination-focus-color: $primary;
+
+// MODAL
+// $modal-content-bg: $body-color;
+$modal-content-border-width: 0;
+// $modal-content-color: $primary;
+$modal-content-border-radius: 0;
+$modal-backdrop-bg: $elevated;
+$modal-backdrop-opacity: 0.75;
+$modal-inner-padding: 2rem;

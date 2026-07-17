@@ -1,6 +1,8 @@
 <?php
 
+use Framework\Http\Middlewares\AuthentificationMiddleware;
 use Framework\Http\Middlewares\CsrfMiddleware;
+use Framework\Http\Middlewares\MethodOverrideMiddleware;
 use Framework\Http\Middlewares\RequestHandlerMiddleware;
 use Framework\Http\Middlewares\RoutingMiddleware;
 use Framework\Http\Middlewares\SessionMiddleware;
@@ -10,12 +12,12 @@ use Middlewares\ErrorHandler;
 use Middlewares\TrailingSlash;
 use Middlewares\Whoops;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Framework\Http\Middlewares\AuthentificationMiddleware;
 
 $environment = $_ENV['APP_ENV'] ?? 'prod';
 
 $coreMiddlewares = [
     TrailingSlash::class,
+    MethodOverrideMiddleware::class,
     RoutingMiddleware::class,
     SessionMiddleware::class,
     AuthentificationMiddleware::class,

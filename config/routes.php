@@ -16,5 +16,6 @@ return [
         new Route(['GET'], '/admin/tags', [TagController::class, 'index'], 'admin.tag.list'),
         new Route(['POST'], '/admin/tags/create[/{id}]', [TagController::class, 'persist'], 'admin.tag.create'),
         new Route(['GET'], '/admin/tags/edit/{id:\d+}', [TagController::class, 'edit'], 'admin.tag.edit'),
+        new Route(['DELETE'], '/admin/tags/remove/{id:\d+}', [TagController::class, 'remove'], 'admin.tag.remove'),
     ],
 ];

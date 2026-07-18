@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
+use App\Form\Category\CategoryFormType;
 use App\Repository\CategoryRepository;
-use Framework\Http\AbstractController;
-use Psr\Http\Message\ResponseInterface;
 use Framework\Adapters\CyclePaginatorItem;
 use Framework\Database\Paginator\Paginator;
+use Framework\Form\FormInterface;
+use Framework\Http\AbstractController;
+use Psr\Http\Message\ResponseInterface;
 use Spiral\Pagination\Paginator as CyclePaginator;
 
 class CategoryController extends AbstractController
@@ -35,6 +37,15 @@ class CategoryController extends AbstractController
             'current_page' => 'categories',
             'pagination' => $pagination,
             'categories' => $categories,
+            'form' => $this->getCategoryFormType()->createView(),
         ]);
+    }
+
+    private function getCategoryFormType(?Category $category = null): FormInterface
+    {
+        $form = $this->createForm(CategoryFormType::class, $category);
+        $form->handleRequest($this->request);
+
+        return $form;
     }
 }

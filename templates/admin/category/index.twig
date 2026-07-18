@@ -18,6 +18,21 @@
             <section class="card mb-4">
                 <div class="card-body">
                     <h2 class="mb-4 h6">{{ form_title }}</h2>
+
+                    <form method="POST" action="{{ path('admin.category.create') }}" class="needs-validation">
+                        {{ form_row(form, 'name') }}
+
+                        {{ form_row(form, 'description') }}
+
+                        {{ csrf_token() }}
+
+                        <button 
+                            class="btn btn-link w-100" 
+                            type="submit">
+                                <i class="bi bi-plus me-1"></i> Ajouter
+                        </button>
+                    </form>
+
                 </div>
             </section>
         </div>

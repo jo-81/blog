@@ -7,6 +7,8 @@ namespace App\Controller\Admin;
 use App\Entity\Category;
 use App\Form\Category\CategoryFormType;
 use App\Repository\CategoryRepository;
+use App\Service\CategoryService;
+use Cycle\Database\Exception\DatabaseException;
 use Framework\Adapters\CyclePaginatorItem;
 use Framework\Database\Paginator\Paginator;
 use Framework\Form\FormInterface;
@@ -16,7 +18,7 @@ use Spiral\Pagination\Paginator as CyclePaginator;
 
 class CategoryController extends AbstractController
 {
-    public function __construct(private CategoryRepository $categoryRepository) {}
+    public function __construct(private CategoryRepository $categoryRepository, private CategoryService $categoryService) {}
 
     public function index(): ResponseInterface
     {
@@ -39,6 +41,27 @@ class CategoryController extends AbstractController
             'categories' => $categories,
             'form' => $this->getCategoryFormType()->createView(),
         ]);
+    }
+
+    public function persist(): ResponseInterface
+    {
+        $category = new Category();
+
+        $form = $this->getCategoryFormType($category);
+        if ($form->isSubmitted() && $form->isValid()) {
+            try {
+                $data = $form->getData();
+                $this->categoryService->create($data);
+                $this->flash->add('success', "La catégorie a bien été ajoutée.");
+
+            } catch (DatabaseException $e) {
+                $this->flash->add('danger', "La catégorie n'a pas été ajoutée.");
+            } finally {
+                return $this->redirect('/admin/categories');
+            }
+        }
+
+        return $this->redirect('/admin/categories');
     }
 
     private function getCategoryFormType(?Category $category = null): FormInterface

@@ -20,5 +20,6 @@ return [
         new Route(['DELETE'], '/admin/tags/remove/{id:\d+}', [TagController::class, 'remove'], 'admin.tag.remove'),
 
         new Route(['GET'], '/admin/categories', [CategoryController::class, 'index'], 'admin.category.list'),
+        new Route(['POST'], '/admin/categories/create[/{id}]', [CategoryController::class, 'persist'], 'admin.category.create'),
     ],
 ];

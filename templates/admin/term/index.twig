@@ -13,6 +13,27 @@
             <section class="card mb-4">
                 <div class="card-body">
                     <h2 class="mb-4 h6">{{ form_title }}</h2>
+
+                    <form 
+                        {% for key, value in form.attr %}
+                            {{ key ~ "=" ~ value }}
+                        {% endfor %}
+                    >
+                        {{ form_row(form, 'name') }}
+
+                        {% if current_page == 'tags' %}
+                            {{ form_row(form, 'color') }}
+                        {% endif %}
+
+                        {% if current_page == 'categories' %}
+                            {{ form_row(form, 'description') }}
+                        {% endif %}
+
+                        {{ csrf_token() }}
+
+                        <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus me-1"></i> Ajouter</button>
+                        
+                    </form>
                 </div>
             </section>
         </div>

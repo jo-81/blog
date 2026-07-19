@@ -32,6 +32,7 @@ class Form implements FormInterface
         $this->attributes = array_merge([
             'method' => 'POST',
             'action' => '',
+            'class' => 'needs-validation',
         ], $options['attr'] ?? []);
 
         // 1. Récupération préalable d'éventuelles erreurs et données flashées en session

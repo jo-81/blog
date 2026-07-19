@@ -112,6 +112,33 @@ class TermController extends AbstractController
         return $this->redirect('/admin/' . $termName);
     }
 
+    public function remove(string $termName, int $id): ResponseInterface
+    {
+        if (! in_array($termName, ['tags', 'categories'], true)) {
+            $this->createNotFoundException();
+        }
+
+        $entityName = $termName == 'tags' ? Tag::class : Category::class;
+
+        $entity = $this->em->getRepository($entityName)->findByPK($id);
+        if (is_null($entity)) {
+            $this->createNotFoundException();
+        }
+
+        try {
+            $this->em->remove($entity);
+            $this->em->flush();
+
+            $this->flash->add('success', 'Le terme a bien été supprimé.');
+
+        } catch (DatabaseException $e) {
+            $this->flash->add('danger', "Le terme n'a pas pu être supprimé.");
+
+        } finally {
+            return $this->redirect('/admin/' . $termName);
+        }
+    }
+
     private function getTermFormType(Term $term, array $options = []): FormInterface
     {
         $termName = null;

@@ -103,7 +103,7 @@
                                                     <button
                                                         data-bs-toggle="modal" 
                                                         data-bs-target="#remove_modal" 
-                                                        {# data-path="{{ path('admin.term.remove', {id: term.id}) }}" #}
+                                                        data-path="{{ path('admin.term.remove', {termName: current_page, id: term.id}) }}"
                                                         class="btn btn-outline-danger btn-sm">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
@@ -130,4 +130,5 @@
         </div>
         {# Liste des terms #}
     </div>
+    {% include "admin/partials/_delete_modal.twig" %}
 {% endblock %}

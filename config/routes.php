@@ -16,5 +16,6 @@ return [
 
         new Route(['GET'], '/admin/{termName}[/{id}]', [TermController::class, 'index'], 'admin.term.list'),
         new Route(['POST'], '/admin/{termName}/create[/{id}]', [TermController::class, 'create'], 'admin.term.create'),
+        new Route(['DELETE'], '/admin/{termName}/remove[/{id}]', [TermController::class, 'remove'], 'admin.term.remove'),
     ],
 ];

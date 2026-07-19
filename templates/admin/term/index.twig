@@ -31,8 +31,16 @@
 
                         {{ csrf_token() }}
 
-                        <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus me-1"></i> Ajouter</button>
-                        
+                        {% if term is null %}
+                            <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus me-1"></i> Ajouter</button>
+                        {% else %}
+                            <div class="d-flex gap-2">
+                                <button class="col-8 btn btn-link" type="submit">
+                                    <i class="bi bi-floppy me-1"></i> Enregistrer
+                                </button>
+                                <a href="{{ path('admin.term.list', {termName: current_page}) }}" class="btn border col-4">Annuler</a>
+                            </div>
+                        {% endif %}                        
                     </form>
                 </div>
             </section>
@@ -89,7 +97,7 @@
 
                                             <td>
                                                 <div class="d-flex gap-1">
-                                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                                    <a href="{{ path('admin.term.list', {termName: current_page, id: term.id}) }}" class="btn btn-outline-primary btn-sm">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
                                                     <button

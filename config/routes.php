@@ -14,7 +14,7 @@ return [
 
         new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'dashboard'),
 
-        new Route(['GET'], '/admin/{termName}', [TermController::class, 'index'], 'admin.term.list'),
-        new Route(['POST'], '/admin/{termName}/create', [TermController::class, 'create'], 'admin.term.create'),
+        new Route(['GET'], '/admin/{termName}[/{id}]', [TermController::class, 'index'], 'admin.term.list'),
+        new Route(['POST'], '/admin/{termName}/create[/{id}]', [TermController::class, 'create'], 'admin.term.create'),
     ],
 ];

@@ -21,21 +21,29 @@ class TermController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $em) {}
 
-    public function index(string $termName): ResponseInterface
+    public function index(string $termName, ?int $id = null): ResponseInterface
     {
         if (! in_array($termName, ['tags', 'categories'], true)) {
             $this->createNotFoundException();
         }
 
-        $formTitle = 'Ajouter';
-        $formTitle .= $termName == 'tags' ? ' un tag' : ' une catégorie';
+        $term = null;
         $entityName = $termName == 'tags' ? Tag::class : Category::class;
-        $actionForm = sprintf('/admin/%s/create', $termName);
+        $repository = $this->em->getRepository($entityName);
+
+        if (!is_null($id)) {
+            $term = $repository->findByPK($id);
+            if (is_null($term)) {
+                $this->createNotFoundException();
+            }
+        }
+
+        $formTitle = is_null($id) ? 'Ajouter' : 'Modifier';
+        $formTitle .= $termName == 'tags' ? ' un tag' : ' une catégorie';
+        $actionForm = is_null($id) ? sprintf('/admin/%s/create', $termName) : sprintf('/admin/%s/create/%d', $termName, $id);
 
         $queryParams = $this->request->getQueryParams();
         $page = isset($queryParams['page']) ? (int) $queryParams['page'] : 1;
-
-        $repository = $this->em->getRepository($entityName);
 
         $select = $repository->select()->orderBy('id', 'DESC');
 
@@ -49,11 +57,11 @@ class TermController extends AbstractController
 
         return $this->render('admin/term/index.twig', [
             'current_page' => $termName,
-            'term' => null,
+            'term' => $term,
             'form_title' => $formTitle,
             'terms' => $terms,
             'pagination' => $pagination,
-            'form' => $this->getTermFormType(new $entityName(), [
+            'form' => $this->getTermFormType(is_null($term) ? new $entityName() : $term, [
                 'attr' => [
                     'action' => $actionForm,
                 ],
@@ -61,16 +69,27 @@ class TermController extends AbstractController
         ]);
     }
 
-    public function create(string $termName)
+    public function create(string $termName, ?int $id = null): ResponseInterface
     {
         if (! in_array($termName, ['tags', 'categories'], true)) {
             $this->createNotFoundException();
         }
 
+        $actionName = 'ajouté';
         if ($termName == 'tags') {
             $entity = new Tag();
         } else {
             $entity = new Category();
+
+        }
+
+        if ($id) {
+            $entity = $this->em->getRepository(get_class($entity))->findByPK($id);
+            $actionName = 'modifié';
+
+            if (is_null($entity)) {
+                $this->createNotFoundException();
+            }
         }
 
         $form = $this->getTermFormType($entity);
@@ -81,10 +100,10 @@ class TermController extends AbstractController
 
                 $this->em->persist($data);
                 $this->em->flush();
-                $this->flash->add('success', 'Le term a bien été ajouté.');
+                $this->flash->add('success', sprintf('Le term a bien été %s.', $actionName));
 
             } catch (DatabaseException $e) {
-                $this->flash->add('danger', "Le term n'a pas pu être ajouté.");
+                $this->flash->add('danger', sprintf("Le term n'a pas pu être %s.", $actionName));
             } finally {
                 return $this->redirect('/admin/' . $termName);
             }
@@ -95,7 +114,15 @@ class TermController extends AbstractController
 
     private function getTermFormType(Term $term, array $options = []): FormInterface
     {
-        $termName =  strtolower(str_replace('App\\Entity\\', '', get_class($term)));
+        $termName = null;
+        if (str_contains(get_class($term), 'Tag')) {
+            $termName = 'tag';
+        }
+
+        if (str_contains(get_class($term), 'Category')) {
+            $termName = 'category';
+        }
+
         if (! in_array($termName, ['tag', 'category'], true)) {
             $this->createNotFoundException();
         }

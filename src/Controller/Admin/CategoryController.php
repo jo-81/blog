@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Form\Category\CategoryFormType;
-use App\Repository\CategoryRepository;
 use App\Service\CategoryService;
-use Cycle\Database\Exception\DatabaseException;
+use Framework\Form\FormInterface;
+use App\Repository\CategoryRepository;
+use Framework\Http\AbstractController;
+use App\Form\Category\CategoryFormType;
+use Psr\Http\Message\ResponseInterface;
 use Framework\Adapters\CyclePaginatorItem;
 use Framework\Database\Paginator\Paginator;
-use Framework\Form\FormInterface;
-use Framework\Http\AbstractController;
-use Psr\Http\Message\ResponseInterface;
+use Cycle\Database\Exception\DatabaseException;
 use Spiral\Pagination\Paginator as CyclePaginator;
 
 class CategoryController extends AbstractController
@@ -52,7 +52,7 @@ class CategoryController extends AbstractController
             try {
                 $data = $form->getData();
                 $this->categoryService->create($data);
-                $this->flash->add('success', "La catégorie a bien été ajoutée.");
+                $this->flash->add('success', 'La catégorie a bien été ajoutée.');
 
             } catch (DatabaseException $e) {
                 $this->flash->add('danger', "La catégorie n'a pas été ajoutée.");

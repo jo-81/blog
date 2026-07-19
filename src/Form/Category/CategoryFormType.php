@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Form\Category;
 
-use App\Repository\CategoryRepository;
-use Framework\Form\Field\TexareaType;
 use Framework\Form\Field\TextType;
+use Framework\Form\Field\TexareaType;
+use App\Repository\CategoryRepository;
 use Framework\Form\FormBuilderInterface;
-use Framework\Validation\Constraint\NotBlank;
 use Framework\Validation\Constraint\Unique;
+use Framework\Validation\Constraint\NotBlank;
 
 class CategoryFormType
 {
@@ -34,7 +34,7 @@ class CategoryFormType
             ->add('description', TexareaType::class, [
                 'label' => 'Description',
                 'constraints' => [],
-                'help' => 'Champ optionel'
+                'help' => 'Champ optionel',
             ])
         ;
     }

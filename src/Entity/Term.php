@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Entity;
+
+use Cycle\Annotated\Annotation\Column;
+
+abstract class Term
+{
+    public const PAGINATION = 6;
+
+    #[Column(type: 'primary')]
+    protected ?int $id = null;
+
+    #[Column(type: 'string(255)', unique: true)]
+    protected ?string $name = null;
+
+    #[Column(type: 'string(255)', unique: true)]
+    protected ?string $slug = null;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name = null): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(?string $slug = null)
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+}

@@ -13,50 +13,10 @@ use Cycle\Annotated\Annotation\Entity;
     table: 'category',
     repository: CategoryRepository::class,
 )]
-class Category
+class Category extends Term
 {
-    public const PAGINATION = 6;
-
-    #[Column(type: 'primary')]
-    private ?int $id = null; /** @phpstan-ignore-line */
-
-    #[Column(type: 'string(255)', unique: true)]
-    private ?string $name = null;
-
-    #[Column(type: 'string(255)', unique: true)]
-    private ?string $slug = null;
-
     #[Column(type: 'string(255)', nullable: true)]
     private ?string $description = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name = null): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getSlug(): ?string
-    {
-        return $this->slug;
-    }
-
-    public function setSlug(?string $slug = null)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {

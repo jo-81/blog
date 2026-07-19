@@ -15,11 +15,11 @@
         </a>
 
         <div class="admin-nav-section text-uppercase text-muted py-2 text-small">Contenue</div>
-        <a  href="{{ path('admin.category.list') }}" 
+        <a  href="{{ path('admin.term.list', {termName: 'categories'}) }}" 
             class="admin-nav-link {{ active_class('categories', current_page) }} d-flex align-items-center text-md rounded px-3 py-2 mb-2">
             <i class="bi bi-folder2"></i> Catégories
         </a>
-        <a  href="{{ path('admin.tag.list') }}" 
+        <a  href="{{ path('admin.term.list', {termName: 'tags'}) }}" 
             class="admin-nav-link {{ active_class('tags', current_page) }} d-flex align-items-center text-md rounded px-3 py-2 mb-2">
             <i class="bi bi-tags"></i> Tags
         </a>

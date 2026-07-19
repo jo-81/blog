@@ -1,15 +1,15 @@
 {% extends 'admin/base.twig' %}
 
-{% block page_title %}Liste des catégories{% endblock %}
+{% block page_title %}Liste des tags{% endblock %}
 
 {% block content %}
 
     {% if tag is defined and tag is not null %}
-        {% set form_title = "Modifier la catégorie" %}
+        {% set form_title = "Modifier le tag" %}
         {% set action = "edit" %}
 
     {% else %}
-        {% set form_title = "Ajouter une catégorie" %}
+        {% set form_title = "Ajouter un tag" %}
         {% set action = "add" %}
     {% endif %}
 
@@ -19,20 +19,34 @@
                 <div class="card-body">
                     <h2 class="mb-4 h6">{{ form_title }}</h2>
 
-                    <form method="POST" action="{{ path('admin.category.create') }}" class="needs-validation">
+                    {# <form 
+                        method="POST"
+
+                        {% if action == 'edit' %}
+                            action="{{ path('admin.tag.create', {id: tag.id}) }}"
+                        {% else %}
+                            action="{{ path('admin.tag.create') }}"
+                        {% endif %}
+                        
+                        class="needs-validation"
+                    >
                         {{ form_row(form, 'name') }}
 
-                        {{ form_row(form, 'description') }}
+                        {{ form_row(form, 'color') }}
 
                         {{ csrf_token() }}
 
-                        <button 
-                            class="btn btn-link w-100" 
-                            type="submit">
-                                <i class="bi bi-plus me-1"></i> Ajouter
-                        </button>
-                    </form>
-
+                        {% if action == 'add' %}
+                            <button class="btn btn-link w-100" type="submit"><i class="bi bi-plus me-1"></i> Ajouter</button>
+                        {% else %}
+                            <div class="d-flex gap-2">
+                                <button class="col-8 btn btn-link" type="submit">
+                                    <i class="bi bi-floppy me-1"></i> Enregistrer
+                                </button>
+                                <a href="{{ path('admin.tag.list') }}" class="btn border col-4">Annuler</a>
+                            </div>
+                        {% endif %}
+                    </form> #}
                 </div>
             </section>
         </div>
@@ -40,11 +54,11 @@
         <div class="col-lg-8">
             <section class="card">
                 <div class="card-body">
-                    <h2 class="h6">Toutes les catégories ( {{ pagination.totalItems }} )</h2>
+                    <h2 class="h6">Tous les tags ( {{ pagination.totalItems }} )</h2>
 
                     {% include "widgets/message/_flash.twig" with {'dismissible': true} %}
                 
-                    {% if categories is defined and categories is not empty %}
+                    {% if tags is defined and tags is not empty %}
                         <div class="table-responsive my-4">
                             <table class="table mb-0">
                                 <thead class="bg-primary opacity-50">
@@ -52,26 +66,29 @@
                                         <th class="text-uppercase text-md" scope="col">#</th>
                                         <th class="text-uppercase text-md" scope="col">Nom</th>
                                         <th class="text-uppercase text-md" scope="col">Slug</th>
-                                        <th class="text-uppercase text-md" scope="col">Description</th>
+                                        <th class="text-uppercase text-md" scope="col">Couleur</th>
                                         <th class="text-uppercase text-md" scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for category in categories %}
+                                    {% for tag in tags %}
                                         <tr>
                                             <td>{{ loop.index + (pagination.currentPage - 1) * pagination.itemsPerPage }}</td>
-                                            <td>{{ category.name }}</td>
-                                            <td>{{ category.slug }}</td>
-                                            <td>{{ category.description }}</td>
+                                            <td>{{ tag.name }}</td>
+                                            <td>{{ tag.slug }}</td>
+                                            <td>
+                                                <div class="p-3 w-25 rounded-3" style="background-color: {{ tag.color }}">
+                                                </div>
+                                            </td>
                                             <td>
                                                 <div class="d-flex gap-1">
-                                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                                    <a href="{{ path('admin.tag.edit', {id: tag.id}) }}" class="btn btn-outline-primary btn-sm">
                                                         <i class="bi bi-pencil"></i>
                                                     </a>
                                                     <button
                                                         data-bs-toggle="modal" 
                                                         data-bs-target="#remove_modal" 
-                                                        {# data-path="{{ path('admin.category.remove', {id: category.id}) }}" #}
+                                                        data-path="{{ path('admin.tag.remove', {id: tag.id}) }}"
                                                         class="btn btn-outline-danger btn-sm">
                                                         <i class="bi bi-trash"></i>
                                                     </button>
@@ -82,14 +99,17 @@
                                 </tbody>
                             </table>
                         </div>
-                        {% else %} <p class="mb-0">Aucune catégorie d'ajoutée.</p>
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="text-md text-muted">
+                                {{ display_pagination_info(pagination, 'tags') }}
+                            </span>
+                            {{ render_pagination(pagination) }}
+                        </div>
+
+                    {% else %} <p class="mb-0">Auncun tag d'ajouté.</p>
+
                     {% endif %}
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-md text-muted">
-                            {{ display_pagination_info(pagination, 'catégories') }}
-                        </span>
-                        {{ render_pagination(pagination) }}
-                    </div>
                 </div>
             </section>
         </div>

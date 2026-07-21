@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Controller\Admin;
 
 use Framework\Http\AbstractController;
@@ -9,8 +11,8 @@ class PostController extends AbstractController
 {
     public function index(): ResponseInterface
     {
-        return $this->render("admin/post/index.twig", [
-            'current_page' => 'posts'
+        return $this->render('admin/post/index.twig', [
+            'current_page' => 'posts',
         ]);
     }
 }

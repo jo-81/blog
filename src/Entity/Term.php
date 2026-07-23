@@ -5,12 +5,14 @@ declare(strict_types=1);
 namespace App\Entity;
 
 use Cycle\Annotated\Annotation\Column;
+use Cycle\Annotated\Annotation\GeneratedValue;
 
 abstract class Term
 {
     public const PAGINATION = 6;
 
     #[Column(type: 'primary')]
+    #[GeneratedValue(onInsert: true)]
     protected ?int $id = null;
 
     #[Column(type: 'string(255)', unique: true)]
@@ -41,7 +43,7 @@ abstract class Term
         return $this->slug;
     }
 
-    public function setSlug(?string $slug = null)
+    public function setSlug(?string $slug = null): self
     {
         $this->slug = $slug;
 

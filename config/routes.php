@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller\Admin\DashboardController;
+use App\Controller\Admin\PostController;
 use App\Controller\Admin\TermController;
 use App\Controller\Auth\LoginController;
 use App\Controller\HomeController;
@@ -13,6 +14,8 @@ return [
         new Route(['GET'], "/logout", [LoginController::class, 'logout'], 'app.logout'),
 
         new Route(['GET'], '/dashboard', [DashboardController::class, 'dashboard'], 'dashboard'),
+
+        new Route(['GET'], '/admin/posts', [PostController::class, 'index'], 'admin.post.list'),
 
         new Route(['GET'], '/admin/{termName}[/{id}]', [TermController::class, 'index'], 'admin.term.list'),
         new Route(['POST'], '/admin/{termName}/create[/{id}]', [TermController::class, 'create'], 'admin.term.create'),

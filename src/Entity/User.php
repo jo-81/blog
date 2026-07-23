@@ -8,15 +8,20 @@ use App\Enums\UserRole;
 use App\Repository\UserRepository;
 use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
+use Cycle\Annotated\Annotation\Table\Index;
+use Cycle\Annotated\Annotation\GeneratedValue;
 
 #[Entity(
     role: 'user',
     table: 'user',
     repository: UserRepository::class,
 )]
+#[Index(columns: ['username'], unique: true)]
+#[Index(columns: ['email'], unique: true)]
 class User
 {
     #[Column(type: 'primary')]
+    #[GeneratedValue(onInsert: true)]
     private int $id;
 
     #[Column(type: 'string(100)', unique: true)]

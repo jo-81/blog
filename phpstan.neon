@@ -12,3 +12,6 @@ parameters:
         -
             message: '#Property .*::\$id is never written, only read\.#'
             path: src/Entity/
+        
+        -
+            identifier: property.unusedType

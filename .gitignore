@@ -7,3 +7,4 @@
 .php-cs-fixer.cache
 /var/
 /node_modules/
+/public/images/

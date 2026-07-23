@@ -77,10 +77,12 @@ $pagination-focus-bg: $link;
 $pagination-focus-color: $primary;
 
 // MODAL
-// $modal-content-bg: $body-color;
 $modal-content-border-width: 0;
-// $modal-content-color: $primary;
 $modal-content-border-radius: 0;
 $modal-backdrop-bg: $elevated;
 $modal-backdrop-opacity: 0.75;
 $modal-inner-padding: 2rem;
+
+// BADGE
+$badge-padding-y: 0.5rem;
+$badge-padding-x: 0.75rem;

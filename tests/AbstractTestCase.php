@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Entity\User;
+use App\Enums\UserRole;
 use Nyholm\Psr7\ServerRequest;
 use Psr\Container\ContainerInterface;
+use Framework\Security\Auth\Authentication;
 use Psr\Http\Message\ServerRequestInterface;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -45,6 +48,29 @@ abstract class AbstractTestCase extends BaseTestCase
     protected function createRequest(string $method, string $uri): ServerRequestInterface
     {
         return new ServerRequest($method, $uri);
+    }
+
+    protected function authMock(?UserRole $role = null, ?int $userId = null): void
+    {
+        $authMock = $this->createMock(Authentication::class);
+
+        if ($role === null && $userId === null) {
+            $authMock->method('getUser')->willReturn(null);
+        } else {
+            $fakeUser = $this->createMock(User::class);
+
+            if (!is_null($role)) {
+                $fakeUser->method('getRole')->willReturn($role);
+            }
+
+            if (!is_null($userId)) {
+                $fakeUser->method('getId')->willReturn($userId);
+            }
+
+            $authMock->method('getUser')->willReturn($fakeUser);
+        }
+
+        $this->container->set(Authentication::class, $authMock);
     }
 
     protected function tearDown(): void

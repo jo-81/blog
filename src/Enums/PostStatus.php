@@ -6,11 +6,11 @@ namespace App\Enums;
 
 enum PostStatus: string
 {
+    case PUBLISHED = 'published';
+
     case DRAFT = 'draft';
 
     case PRIVATELY_PUBLISHED = 'private';
-
-    case PUBLISHED = 'published';
 
     case TRASHED = 'trash';
 
@@ -25,6 +25,15 @@ enum PostStatus: string
             self::PUBLISHED => 'Publié',
             self::TRASHED => 'Corbeille',
         };
+    }
+
+    public static function has(?string $value): bool
+    {
+        if ($value === null) {
+            return false;
+        }
+
+        return self::tryFrom($value) !== null;
     }
 
     public function toArray(): array

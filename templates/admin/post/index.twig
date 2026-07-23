@@ -2,5 +2,101 @@
 
 {% block page_title %}Liste des posts{% endblock %}
 
+    {% set color_posts_status = {
+        'draft': 'text-warning',
+        'published': 'text-success',
+        'private': 'text-info',
+        'trash': 'text-danger',
+    } %}
+
 {% block content %}
+    <section>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="btn-group gap-2">
+                <a href="{{ path('admin.post.list') }}"
+                    class="btn {% if status is null %}btn-link{% else %}btn-ghost{% endif %} rounded-2">Tous ({{ posts_status.all }})</a>
+                {% for case in enum('App\\Enums\\PostStatus').cases %}
+                    <a 
+                        href="{{ path('admin.post.list', {post_status: case.value}) }}" 
+                        class="btn {% if status == case.value %}btn-link{% else %}btn-ghost{% endif %} rounded-2">{{ case.getLabel }} ({{ posts_status.(case.value) }})</a>
+                {% endfor %}
+            </div>
+
+            <div>
+                <a href="#" class="btn btn-link"><i class="bi bi-plus me-2"></i>Nouvel article</a>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mb-4">
+                <thead class="bg-primary opacity-50">
+                    <tr>
+                        <th class="text-uppercase text-md" scope="col">Titre</th>
+                        <th class="text-uppercase text-md" scope="col">Catégorie</th>             
+                        <th class="text-uppercase text-md" scope="col">Status</th>
+                        <th class="text-uppercase text-md" scope="col">Date</th>
+                        <th class="text-uppercase text-md" scope="col">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for post in posts %}
+                        <tr>
+                            <td>
+                                <div>
+                                    <div>{{ post.title }}</div>
+                                    {% if post.tags is not empty %}
+                                    <div class="mt-1 d-flex gap-1">
+                                        {% for tag in post.tags %}
+                                            <span 
+                                                class="text-small px-2 py-1 rounded-3 fw-bold"
+                                                style="border: 1px solid {{ tag.color }}85; background-color: {{ tag.color }}15; color: {{ tag.color }}">{{ tag.name }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge rounded-pill text-primary bg-primary bg-opacity-10">
+                                    {{ post.category.name }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2 {{ color_posts_status.(post.status.value) }}">
+                                    <i class="bi bi-dot"></i>
+                                    <span class="text-md fw-bold">{{ post.status.getLabel }}</span>
+                                </div>
+                            </td>
+                            <td>{{ post.createdAt|date('d/m/Y') }}</td>
+                            <td>
+                                <div class="d-flex gap-1">
+                                    <a href="#" class="btn btn-primary btn-sm">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-outline-primary btn-sm">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <button
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#remove_modal" 
+                                        {# data-path="{{ path('admin.term.remove', {termName: current_page, id: term.id}) }}" #}
+                                        class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-trash"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="text-md text-muted">
+                    {{ display_pagination_info(pagination, 'articles') }}
+                </span>
+                {{ render_pagination(pagination) }}
+            </div>
+        </div>
+    </section>
 {% endblock %}

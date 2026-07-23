@@ -23,6 +23,8 @@ use Cycle\Annotated\Annotation\Relation\ManyToMany;
 #[Index(columns: ['slug'], unique: true)]
 class Post
 {
+    public const PAGINATION = 8;
+
     #[Column(type: 'primary')]
     #[GeneratedValue(onInsert: true)]
     private ?int $id = null;

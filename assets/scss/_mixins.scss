@@ -1,5 +1,4 @@
 .btn-link {
-
   transition: all 0.3s;
   font-size: 0.8rem;
   font-weight: 600;
@@ -18,6 +17,22 @@
 
     $active-background: #0a58ca,
     $active-border: #0a58ca,
+  );
+}
+
+.btn-ghost {
+  transition: all 0.3s;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  @include button-variant(
+    $background: transparent,
+    $border: $border-color,
+    $color: $text-muted,
+
+    $hover-background: $elevated,
+
+    $active-background: transparent,
   );
 }
 

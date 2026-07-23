@@ -1,10 +1,11 @@
 <?php
 
 use App\Entity\Category;
+use App\Entity\Post;
 use App\Entity\Tag;
 use App\Repository\CategoryRepository;
+use App\Repository\PostRepository;
 use App\Repository\TagRepository;
-use App\Service\TagService;
 use DI\Container;
 use Framework\Database\EntityManagerInterface;
 use Framework\Renderer\TwigExtensions\ActiveClassLinkExtension;
@@ -84,5 +85,9 @@ return [
         return $entityManager->getRepository(Category::class);
     }),
 
-    TagService::class => DI\autowire(TagService::class),
+    PostRepository::class => DI\factory(function(Container $container) {
+        $entityManager = $container->get(EntityManagerInterface::class);
+
+        return $entityManager->getRepository(Post::class);
+    }),
 ];
